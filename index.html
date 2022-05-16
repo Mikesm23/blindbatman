@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/images/icon.ico" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <title>Blind Batman</title>
+  </head>
+  <body>
+    <!-- Start of Splash Page -->
+    <div class="splashpage">
+      <div>
+        <img
+          id="gamelogo"
+          src="/images/logo.png"
+          alt="Blind Batman Game Logo"
+        />
+      </div>
+      <div>
+        <h2 id="lp_uktext">
+          Batman needs your help player. He's blind and he needs YOU to help him
+          get the X-Ray vision back. <br />
+          Stay away from the Penguins and avoid Jokers at all costs.<br />Catch
+          some Bats if you're hurt and collect Batsignals to move up to the next
+          level.<br />If you collect enough of those Batman will be able to see
+          again.<br />Don't leave Batman blind please. Gotham appreciates it.
+        </h2>
+      </div>
+      <div class="arrows">
+        <img
+          id="left-arrow"
+          src="/images/left_arrow.png"
+          alt="left arrow key"
+        />
+        <p id="keys_uktext">
+          Use these keys<br />
+          to play
+        </p>
+        <img
+          id="right-arrow"
+          src="/images/right_arrow.png"
+          alt="right arrow key"
+        />
+      </div>
+      <div>
+        <button id="startBtn" type="button" class="btn btn-start">Start</button>
+      </div>
+      <!-- Experiences with images turning into buttons -->
+      <div class="last-btns">
+        <input
+          class="sound"
+          type="image"
+          src="/images/sound_off.png"
+          name="submit"
+          width="44"
+          height="70"
+          alt="sound on icon"
+        />
+        <input
+          class="lang"
+          type="image"
+          src="/images/pt_flag.png"
+          name="submit"
+          width="70"
+          height="70"
+          alt="PT language icon"
+        />
+      </div>
+    </div>
+    <!-- End of Splash Page -->
+    <!-- Start of Game Play Page -->
+    <div id="gameplay">
+      <div id="game-board">
+        <canvas id="my-canvas" width="1500" height="844"></canvas>
+      </div>
+      <div>
+        <button id="restartBtn" type="button" class="btn btn-restart">
+          Restart
+        </button>
+      </div>
+    </div>
+    <!-- End of Game Play Page -->
+    <!-- Start of Gameover Page -->
+    <div id="gameover">
+      <div>
+        <img
+          class="gamelogo"
+          src="/images/gameover.png"
+          alt="Game Over image"
+        />
+      </div>
+      <div class="highscores">
+        <p id="go_uktext">
+          Bad luck.. that Batman only has you to help him. Useless.<br />He's
+          still blind because of you.
+        </p>
+        <ol id="high-scores-table"></ol>
+      </div>
+      <div>
+        <button id="tryagainBtn" type="button" class="btn btn-tryagain">
+          Try Again
+        </button>
+      </div>
+      <!-- <div>
+            <img class="sound" src="/images/sound_off.png" alt="sound on icon">
+            <img class="lang" src="/images/pt_flag.png" alt="PT language icon">
+        </div> -->
+    </div>
+    <!-- End of Gameover Page -->
+    <!-- Start of Winner Page -->
+    <div id="winner">
+      <div>
+        <img class="gamelogo" src="/images/winner.png" alt="You Win image" />
+      </div>
+      <div class="highscores">
+        <p id="yw_uktext">
+          GREAT JOB!<br />Batman is a lucky Super Hero to have you by his side.
+          Impressive.<br />
+          Now he is seeing again!
+        </p>
+        <ol id="high-scores-table"></ol>
+      </div>
+      <div>
+        <button id="playagainBtn" type="button" class="btn btn-playagain">
+          Play Again
+        </button>
+      </div>
+      <div class="last-btns">
+        <img class="sound" src="/images/sound_off.png" alt="sound on icon" />
+        <img class="lang" src="/images/pt_flag.png" alt="PT language icon" />
+      </div>
+    </div>
+    <!-- End of Gameover Page -->
+    <script src="/scripts/script.js"></script>
+  </body>
+</html>

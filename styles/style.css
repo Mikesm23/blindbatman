@@ -1,0 +1,90 @@
+/* Insert costum font */
+
+#gameplay #gameover #winner {
+    background-color: #7F8086;
+}
+
+.splashpage {
+    display: flex;
+    flex-direction: column;
+    background-color: #7F8086;
+}
+
+#gamelogo {
+display: flex;
+justify-content: center; /* it's not centering */
+width: 1024px;
+height: 576px
+}
+
+#lp_uktext {
+display: flex;
+justify-content: center;
+font-weight: bold;
+text-align: center;
+align-items: center;
+}
+
+/* Arrow Buttons */
+.arrows {
+display: flex;
+flex-direction: row;
+justify-content: center;
+/* align-items: center; */
+height: 100px;
+margin-top: 50px;
+margin-bottom: 50px;
+}
+
+#keys_uktext {
+margin-right: 20px;
+margin-left: 20px;
+font-size: 30px;
+font-weight: bold;
+text-transform: uppercase;
+text-align: center;
+}
+
+/* Start Button */
+.btn {
+display: flex;
+justify-content: center;
+background-color: #FEE202;
+border: 4px solid black;
+width: 200px;
+height: 100px;
+margin-top: 60px;
+margin-bottom: 60px;
+font-size: 40px;
+font-weight: bolder;
+text-transform: uppercase;
+text-align: justify;
+}
+
+/* Bottom Buttons*/
+.last-btns {
+display: flex;
+justify-content: center;
+height: 50px;
+width: auto;
+margin-bottom: 70px;
+}
+
+.sound {
+margin-right: 40px;
+
+}
+
+.lang {
+margin-left: 40px;
+}
+
+
+
+/*
+.sound {
+max-width: 5px;
+max-height: 5px;
+object-fit: contain;
+}
+*/
