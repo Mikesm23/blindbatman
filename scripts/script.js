@@ -43,21 +43,21 @@ let jokerX = 200;
 let jokerY= 200;
 let jokerW = 60;
 let jokerH = 72;
-let speedJoker = 5;
+let speedJoker = 10;
 
 // Penguin Images Variables
 let penguinX = 400;
 let penguinY = 200;
 let penguinW = 60;
 let penguinH = 80;
-let speedpenguin = 12;
+let speedpenguin = 10;
 
 // Bat Signal Images Variables
 let batSignalX = 600;
 let batSignalY = 200;
 let batSignalW = 45;
 let batSignalH = 40;
-let speedbatSignal = 12;
+let speedbatSignal = 10;
 
 // Bat Images Variables
 let batX = 800;
@@ -86,10 +86,9 @@ let health = 5;
 // Player Variable
 let player = '';
 
-
 // Pages
 const splashPage = document.querySelector(".splashpage");
-const gameBoardPage = document.getElementById("game-board"); // What to target here? The Main div ID or the canvas div ID?
+const gameBoardPage = document.getElementById("game-board");
 const gameOverPage = document.getElementById("gameover");
 const youWinPage = document.getElementById("winner");
 
@@ -100,38 +99,32 @@ let tryAgainBtn = document.querySelector("#tryagainBtn");
 let playAgainBtn = document.querySelector("#playagainBtn");
 let switchAudio = document.querySelector(".sound");
 
-
 // Images Sources
 
 let batmanRight = new Image();
 batmanRight.src = "/images/bb_goright.png";
-
 let batmanLeft = new Image();
 batmanLeft.src = "/images/bb_goleft.png";
-
 let joker = new Image();
 joker.src = "/images/joker.png";
-
 let penguin = new Image();
 penguin.src = "/images/penguin.png";
-
 let batSignal = new Image();
 batSignal.src = "/images/batsignal.png";
-
 let bat = new Image();
 bat.src = "/images/bat.png";
 
 let animationFrameId;
 
 // Elements Falling from  the Sky
-/*let elementsArray = [
-    { x: middle, y: -200 },
-    { x: middle - 200, y: -600 },
-    { x: middle, y: -900 },
-    { img: joker, x: middle, y: -200, width: jokerW, height: jokerH },
-    { img: penguin, x: middle - 200, y: -1000, width: penguinW, height: penguinH },
-    { img: batSignal, x: middle, y: -1800, width: batSignalW, height: batSignalH },
-  ];*/
+let elementsArray = [
+    { img: joker, x: 200, y: -200 },
+    { img: penguin, x: 400, y: -600 },
+    { img: batSignal, x: 600, y: -900 },
+    { img: joker, x: 200, y: -200, width: jokerW, height: jokerH },
+    { img: penguin, x: 400 - 200, y: -1000, width: penguinW, height: penguinH },
+    { img: batSignal, x: 600, y: -1800, width: batSignalW, height: batSignalH },
+  ];
 
 // All the functions
 /* function animate() {
@@ -148,7 +141,8 @@ function startGame() {
     youWinPage.style.display = "none";
     drawImages()
     moveBatman()
-    gameMusic.play() // to pause: gameMusic.pause()
+    moveElements()
+    // gameMusic.play()
  
     animationFrameId = requestAnimationFrame(startGame);
 };
@@ -156,10 +150,6 @@ function startGame() {
 function drawImages() {
     ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
     ctx.drawImage(batmanRight, batmanRightX, batmanRightY, batmanRightW, batmanRightH);
-    ctx.drawImage(joker, jokerX, jokerY, jokerW, jokerH);
-    ctx.drawImage(penguin, penguinX, penguinY, penguinW, penguinH);
-    ctx.drawImage(batSignal, batSignalX, batSignalY, batSignalW, batSignalH);
-    ctx.drawImage(bat, batX, batY, batW, batH);
 }
 
 function moveBatman() {
@@ -179,25 +169,18 @@ function moveBatman() {
       }
 };
 
-/*function moveElements () {
+function moveElements () {
 
     for (let i = 0; i < elementsArray.length; i++) {
-        ctx.drawImage(carPink, elementsArray[i].x, elementsArray[i].y, 80, 110);
-        ctx.drawImage(
-            elementsArray[i].img,
-            elementsArray[i].x,
-            elementsArray[i].y,
-            elementsArray[i].width,
-            elementsArray[i].height
-        );
-        elementsArray[i].y += speed;
-        //ctx.drawImage(car, middle + 50, height, 80, 150);
+        ctx.drawImage(elementsArray[i].img, elementsArray[i].x, elementsArray[i].y, elementsArray[i].width, elementsArray[i].height);
+        elementsArray[i].y += speedJoker;
         if (elementsArray[i].y > canvas.height) {
-            elementsArray[i].y = -700;
             elementsArray[i].y = -1900;
         }
     }
-}; */
+
+    
+};
 
 /* function getPlayerName() {
     player = prompt("Hello! Who is going to help Batman today?");
