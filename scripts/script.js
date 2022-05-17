@@ -43,21 +43,21 @@ let jokerX = 200;
 let jokerY= 200;
 let jokerW = 60;
 let jokerH = 72;
-let speedJoker = 10;
+let speedJoker = 6;
 
 // Penguin Images Variables
 let penguinX = 400;
 let penguinY = 200;
 let penguinW = 60;
 let penguinH = 80;
-let speedPenguin = 8;
+let speedPenguin = 4;
 
 // Bat Signal Images Variables
 let batSignalX = 600;
 let batSignalY = 200;
 let batSignalW = 45;
 let batSignalH = 40;
-let speedBatSignal = 5;
+let speedBatSignal = 2;
 
 // Bat Images Variables
 let batX = 800;
@@ -116,58 +116,69 @@ bat.src = "/images/bat.png";
 
 let animationFrameId;
 
+// Generate rendom positions for the elements falling
+let randomXPlacement = () => {
+    let biggestX = canvas.width - 20; // what is this?
+    let smallestX = 50;
+    let randomX = Math.floor(
+      Math.random() * (biggestX - smallestX + 1) + smallestX
+    );
+    console.log(randomX);
+    return randomX;
+  };
+
 // Elements Falling from  the Sky
 let jokerArray = [
-    { img: joker, x: 200, y: -200 },
-    { img: joker, x: 200, y: -200, width: jokerW, height: jokerH },
-    { img: joker, x: 400, y: -200 },
-    { img: joker, x: 400, y: -200, width: jokerW, height: jokerH },
-    { img: joker, x: 600, y: -200 },
-    { img: joker, x: 600, y: -200, width: jokerW, height: jokerH },
-    { img: joker, x: 800, y: -200 },
-    { img: joker, x: 800, y: -200, width: jokerW, height: jokerH },
-    { img: joker, x: 1000, y: -200 },
-    { img: joker, x: 1000, y: -200, width: jokerW, height: jokerH},
-    { img: joker, x: 1200, y: -200 },
-    { img: joker, x: 1200, y: -200, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -450, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -800, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -1150, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -1500, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -1850, width: jokerW, height: jokerH},
+    /*{ img: joker, x: randomXPlacement(), y: -675, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -775, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -875, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -975, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -1075, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -1175, width: jokerW, height: jokerH},*/
   ];
 
   let penguinArray = [
-    { img: penguin, x: 100, y: -600 },
-    { img: penguin, x: 100, y: -1000, width: penguinW, height: penguinH },
-    { img: penguin, x: 300, y: -600 },
-    { img: penguin, x: 300, y: -1000, width: penguinW, height: penguinH },
-    { img: penguin, x: 500, y: -600 },
-    { img: penguin, x: 500, y: -1000, width: penguinW, height: penguinH },
-    { img: penguin, x: 700, y: -600 },
-    { img: penguin, x: 700, y: -1000, width: penguinW, height: penguinH },
-    { img: penguin, x: 900, y: -600 },
-    { img: penguin, x: 900, y: -1000, width: penguinW, height: penguinH },
-    { img: penguin, x: 1100, y: -600 },
-    { img: penguin, x: 1100, y: -1000, width: penguinW, height: penguinH },
-    { img: penguin, x: 1300, y: -600 },
-    { img: penguin, x: 1300, y: -1000, width: penguinW, height: penguinH },
+    { img: penguin, x: randomXPlacement(), y: -100, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -300, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -500, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -700, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -900, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -1100, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -1300, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -1500, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -1700, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -1900, width: penguinW, height: penguinH},
+    /*{ img: penguin, x: randomXPlacement(), y: -1050, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -1150, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -1250, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -1350, width: penguinW, height: penguinH},*/
   ];
 
   let batSignalArray = [
-    { img: batSignal, x: 50, y: -900 },
-    { img: batSignal, x: 50, y: -1800, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: 250, y: -900 },
-    { img: batSignal, x: 250, y: -1800, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: 450, y: -900 },
-    { img: batSignal, x: 450, y: -1800, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: 650, y: -900 },
-    { img: batSignal, x: 650, y: -1800, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: 850, y: -900 },
-    { img: batSignal, x: 850, y: -1800, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: 1050, y: -900 },
-    { img: batSignal, x: 1050, y: -1800, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: 1250, y: -900 },
-    { img: batSignal, x: 1250, y: -1800, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: 1250, y: -900 },
-    { img: batSignal, x: 1250, y: -1800, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: 1450, y: -900 },
-    { img: batSignal, x: 1450, y: -1800, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -100, width: batSignalW, height: batSignalH},
+    { img: batSignal, x: randomXPlacement(), y: -600, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -1100, width: batSignalW, height: batSignalH  },
+    { img: batSignal, x: randomXPlacement(), y: -1600, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -2100, width: batSignalW, height: batSignalH  },
+    /*{ img: batSignal, x: randomXPlacement(), y: -600, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -700, width: batSignalW, height: batSignalH  },
+    { img: batSignal, x: randomXPlacement(), y: -800, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -900, width: batSignalW, height: batSignalH  },
+    { img: batSignal, x: randomXPlacement(), y: -1000, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -1100, width: batSignalW, height: batSignalH  },
+    { img: batSignal, x: randomXPlacement(), y: -1200, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -1300, width: batSignalW, height: batSignalH  },
+    { img: batSignal, x: randomXPlacement(), y: -1400, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -1500, width: batSignalW, height: batSignalH  },
+    { img: batSignal, x: randomXPlacement(), y: -1600, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -1700, width: batSignalW, height: batSignalH  },
+    { img: batSignal, x: randomXPlacement(), y: -1800, width: batSignalW, height: batSignalH },*/
   ];
 
   /*let batArray = [
@@ -182,6 +193,8 @@ let jokerArray = [
     startGame()
 };
 */
+
+
 
 function startGame() {
     // getPlayerName()
@@ -204,8 +217,7 @@ function drawImages() {
 }
 
 function moveBatman() {
-    // ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (isBatmanGoingLeft) { // Later change Batman image to go left
+    if (isBatmanGoingLeft) {
         if (batmanRightX > 0) {
             batmanRight.src = "/images/bb_goleft.png";
             console.log('isBatmanGoingLeft');
@@ -226,7 +238,7 @@ function moveElements () {
         ctx.drawImage(jokerArray[i].img, jokerArray[i].x, jokerArray[i].y, jokerArray[i].width, jokerArray[i].height);
         jokerArray[i].y += speedJoker;
         if (jokerArray[i].y > canvas.height) {
-            jokerArray[i].y = -1900;
+            jokerArray[i].y = -100;
         }
     }
 
@@ -234,7 +246,7 @@ function moveElements () {
         ctx.drawImage(penguinArray[i].img, penguinArray[i].x, penguinArray[i].y, penguinArray[i].width, penguinArray[i].height);
         penguinArray[i].y += speedPenguin;
         if (penguinArray[i].y > canvas.height) {
-            penguinArray[i].y = -1900;
+            penguinArray[i].y = -100;
         }
     }
 
@@ -242,7 +254,7 @@ function moveElements () {
         ctx.drawImage(batSignalArray[i].img, batSignalArray[i].x, batSignalArray[i].y, batSignalArray[i].width, batSignalArray[i].height);
         batSignalArray[i].y += speedBatSignal;
         if (batSignalArray[i].y > canvas.height) {
-            batSignalArray[i].y = -1900;
+            batSignalArray[i].y = -100;
         }
     }
 
@@ -256,6 +268,69 @@ function moveElements () {
 
 };
 
+// Collisions and points
+/*
+// Joker Collisions
+for (let i = 0; i < jokerArray.length; i++) {
+    ctx.drawImage(
+    jokerArray[i].img,
+    jokerArray[i].x,
+    jokerArray[i].y,
+    jokerArray[i].width,
+    jokerArray[i].height
+    );
+    jokerArray[i].y += jokerSpeed;
+    if (jokerArray[i].y > canvas.height) {
+        jokerArray[i].y = -5500; // It's sent way up? It's not what we did in the moveElements()?
+    }
+    if (
+        // checks if the bottom of the traffic car is touching the top of the player car
+        jokerArray[i].y + jokerArray[i].height >= batmanRightY + 10 && //why + 10?
+        //checks if the right side of the player car is more to the right than the traffic car
+        batmanRightX + 120 > jokerArray[i].x &&
+        // checks if the left side of the player car is touching the left side of the traffic car
+        batmanRightX < jokerArray[i].x + jokerArray[i].width &&
+        //checks if the bottom of the player car is touching the top of the traffic car
+        batmanRightY + batmanRightH - 10 > jokerArray[i].y
+      ) {
+        health = health - 1;
+      }
+      if (health <= 0) {
+        gameOver()
+      }
+};
+*/
+/*
+// Bat Signal Points
+for (let i = 0; i < batSignalArray.length; i++) {
+    ctx.drawImage(
+    batSignalArray[i].img,
+    batSignalArray[i].x,
+    batSignalArray[i].y,
+    batSignalArray[i].width,
+    batSignalArray[i].height
+    );
+    batSignalArray[i].y += batSignalSpeed;
+    if (batSignalArray[i].y > canvas.height) {
+        batSignalArray[i].y = -5500; // It's sent way up? It's not what we did in the moveElements()?
+    }
+    if (
+        // checks if the bottom of the traffic car is touching the top of the player car
+        batSignalArray[i].y + batSignalArray[i].height >= batmanRightY + 10 &&
+        //checks if the right side of the player car is more to the right than the traffic car
+        batmanRightX + 120 > batSignalArray[i].x &&
+        // checks if the left side of the player car is touching the left side of the traffic car
+        batmanRightX < batSignalArray[i].x + batSignalArray[i].width &&
+        //checks if the bottom of the player car is touching the top of the traffic car
+        batmanRightY + batmanRightH - 10 > batSignalArray[i].y
+      ) {
+        score = newScore + 1;
+      }
+    if (score === 15) {
+        youWin()
+    }
+};    
+*/
 /* function getPlayerName() {
     player = prompt("Hello! Who is going to help Batman today?");
     if (player != null) {
@@ -296,7 +371,7 @@ function insertScore() {
 */
 /*
 // What happens when Player lose
-function gameOver () {
+function gameOver() {
     gameOverPage.style.display = "block";
     canvas.style.display = "none";
     splashPage.style.display = "none";
@@ -307,7 +382,7 @@ function gameOver () {
 }
 
 // What happens when Player wins
-function youWin () {
+function youWin() {
     youWinPage.style.display = "block";
     gameOverPage.style.display = "none";
     canvas.style.display = "none";
