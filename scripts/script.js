@@ -50,21 +50,21 @@ let penguinX = 400;
 let penguinY = 200;
 let penguinW = 60;
 let penguinH = 80;
-let speedpenguin = 10;
+let speedPenguin = 8;
 
 // Bat Signal Images Variables
 let batSignalX = 600;
 let batSignalY = 200;
 let batSignalW = 45;
 let batSignalH = 40;
-let speedbatSignal = 10;
+let speedBatSignal = 5;
 
 // Bat Images Variables
 let batX = 800;
 let batY = 200;
 let batW = 23;
 let batH = 19;
-let speedBat = 15;
+let speedBat = 6;
 
 let isBatmanGoingLeft = false;
 let isBatmanGoingRight = false;
@@ -117,14 +117,65 @@ bat.src = "/images/bat.png";
 let animationFrameId;
 
 // Elements Falling from  the Sky
-let elementsArray = [
+let jokerArray = [
     { img: joker, x: 200, y: -200 },
-    { img: penguin, x: 400, y: -600 },
-    { img: batSignal, x: 600, y: -900 },
     { img: joker, x: 200, y: -200, width: jokerW, height: jokerH },
-    { img: penguin, x: 400 - 200, y: -1000, width: penguinW, height: penguinH },
-    { img: batSignal, x: 600, y: -1800, width: batSignalW, height: batSignalH },
+    { img: joker, x: 400, y: -200 },
+    { img: joker, x: 400, y: -200, width: jokerW, height: jokerH },
+    { img: joker, x: 600, y: -200 },
+    { img: joker, x: 600, y: -200, width: jokerW, height: jokerH },
+    { img: joker, x: 800, y: -200 },
+    { img: joker, x: 800, y: -200, width: jokerW, height: jokerH },
+    { img: joker, x: 1000, y: -200 },
+    { img: joker, x: 1000, y: -200, width: jokerW, height: jokerH},
+    { img: joker, x: 1200, y: -200 },
+    { img: joker, x: 1200, y: -200, width: jokerW, height: jokerH},
   ];
+
+  let penguinArray = [
+    { img: penguin, x: 100, y: -600 },
+    { img: penguin, x: 100, y: -1000, width: penguinW, height: penguinH },
+    { img: penguin, x: 300, y: -600 },
+    { img: penguin, x: 300, y: -1000, width: penguinW, height: penguinH },
+    { img: penguin, x: 500, y: -600 },
+    { img: penguin, x: 500, y: -1000, width: penguinW, height: penguinH },
+    { img: penguin, x: 700, y: -600 },
+    { img: penguin, x: 700, y: -1000, width: penguinW, height: penguinH },
+    { img: penguin, x: 900, y: -600 },
+    { img: penguin, x: 900, y: -1000, width: penguinW, height: penguinH },
+    { img: penguin, x: 1100, y: -600 },
+    { img: penguin, x: 1100, y: -1000, width: penguinW, height: penguinH },
+    { img: penguin, x: 1300, y: -600 },
+    { img: penguin, x: 1300, y: -1000, width: penguinW, height: penguinH },
+  ];
+
+  let batSignalArray = [
+    { img: batSignal, x: 50, y: -900 },
+    { img: batSignal, x: 50, y: -1800, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: 250, y: -900 },
+    { img: batSignal, x: 250, y: -1800, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: 450, y: -900 },
+    { img: batSignal, x: 450, y: -1800, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: 650, y: -900 },
+    { img: batSignal, x: 650, y: -1800, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: 850, y: -900 },
+    { img: batSignal, x: 850, y: -1800, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: 1050, y: -900 },
+    { img: batSignal, x: 1050, y: -1800, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: 1250, y: -900 },
+    { img: batSignal, x: 1250, y: -1800, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: 1250, y: -900 },
+    { img: batSignal, x: 1250, y: -1800, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: 1450, y: -900 },
+    { img: batSignal, x: 1450, y: -1800, width: batSignalW, height: batSignalH },
+  ];
+
+  /*let batArray = [
+    { img: bat, x: 600, y: -900 },
+    { img: bat, x: 600, y: -1800, width: batW, height: batH },
+  ];*/
+
+
 
 // All the functions
 /* function animate() {
@@ -171,15 +222,38 @@ function moveBatman() {
 
 function moveElements () {
 
-    for (let i = 0; i < elementsArray.length; i++) {
-        ctx.drawImage(elementsArray[i].img, elementsArray[i].x, elementsArray[i].y, elementsArray[i].width, elementsArray[i].height);
-        elementsArray[i].y += speedJoker;
-        if (elementsArray[i].y > canvas.height) {
-            elementsArray[i].y = -1900;
+    for (let i = 0; i < jokerArray.length; i++) {
+        ctx.drawImage(jokerArray[i].img, jokerArray[i].x, jokerArray[i].y, jokerArray[i].width, jokerArray[i].height);
+        jokerArray[i].y += speedJoker;
+        if (jokerArray[i].y > canvas.height) {
+            jokerArray[i].y = -1900;
         }
     }
 
-    
+    for (let i = 0; i < penguinArray.length; i++) {
+        ctx.drawImage(penguinArray[i].img, penguinArray[i].x, penguinArray[i].y, penguinArray[i].width, penguinArray[i].height);
+        penguinArray[i].y += speedPenguin;
+        if (penguinArray[i].y > canvas.height) {
+            penguinArray[i].y = -1900;
+        }
+    }
+
+    for (let i = 0; i < batSignalArray.length; i++) {
+        ctx.drawImage(batSignalArray[i].img, batSignalArray[i].x, batSignalArray[i].y, batSignalArray[i].width, batSignalArray[i].height);
+        batSignalArray[i].y += speedBatSignal;
+        if (batSignalArray[i].y > canvas.height) {
+            batSignalArray[i].y = -1900;
+        }
+    }
+
+   /* for (let i = 0; i < batArray.length; i++) {
+        ctx.drawImage(batArray[i].img, batArray[i].x, batArray[i].y, batArray[i].width, batArray[i].height);
+        batArray[i].y += speedBat;
+        if (batArray[i].y > canvas.height) {
+            batArray[i].y = -1900;
+        }
+    } */
+
 };
 
 /* function getPlayerName() {
