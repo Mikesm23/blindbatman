@@ -1,20 +1,25 @@
 /* Insert costum font */
 
-#gameplay #gameover #winner {
-    background-color: #7F8086;
-}
+/* To-Dos:
 
+Uniformize background size (all grey)
+Center Game logo
+
+
+body { min-height: 100vh; }
+
+/* SPLASH PAGE STYLING */
 .splashpage {
-    display: flex;
-    flex-direction: column;
-    background-color: #7F8086;
+display: flex;
+flex-direction: column;
+background-color: #7F8086;
 }
 
 #gamelogo {
 display: flex;
 justify-content: center; /* it's not centering */
 width: 1024px;
-height: 576px
+height: 576px;
 }
 
 #lp_uktext {
@@ -45,29 +50,79 @@ text-transform: uppercase;
 text-align: center;
 }
 
-/* Start Button */
-.btn {
+/* GAMEPAGE STYLING */
+
+#gameplay {
 display: flex;
 justify-content: center;
-background-color: #FEE202;
-border: 4px solid black;
-width: 200px;
-height: 100px;
-margin-top: 60px;
-margin-bottom: 60px;
-font-size: 40px;
-font-weight: bolder;
-text-transform: uppercase;
-text-align: justify;
+background-color: #7F8086;
 }
 
-/* Bottom Buttons*/
-.last-btns {
+.gameplay-Btns {
 display: flex;
 justify-content: center;
-height: 50px;
-width: auto;
-margin-bottom: 70px;
+align-items: center;
+}
+
+#restartBtn {
+margin-right: 40px;   
+}
+    
+#muteBtn {
+margin-left: 40px;
+}
+
+/* GAMEOVER PAGE STYLING */
+#gameover {
+display: flex;
+flex-direction: column;
+justify-content: center; /* it's not centering */
+background-color: #7F8086;
+}
+
+#gologo {
+display: flex;
+justify-content: center; /* it's not centering */
+width: 1024px;
+height: 576px
+}
+
+#go_uktext {
+display: flex;
+justify-content: center;
+font-weight: bold;
+text-align: center;
+align-items: center;
+}
+
+/*
+HighScores Table
+#high-scores-table { //Will be used in the winner page too
+}
+*/
+
+/* WINNER PAGE STYLING */
+#winner {
+display: flex;
+flex-direction: column;
+justify-content: center; /* it's not centering */
+background-color: #7F8086;
+}
+        
+#yw_uktext {
+display: flex;
+justify-content: center;
+font-weight: bold;
+text-align: center;
+align-items: center;
+}
+
+#winlogo {
+display: flex;
+justify-content: center; /* it's not centering */
+width: 1024px;
+height: 576px;
+padding: 10px;
 }
 
 .sound {
@@ -78,6 +133,45 @@ margin-right: 40px;
 .lang {
 margin-left: 40px;
 }
+
+
+/* Start/Restart/TryAgain Button */
+.btn {
+    display: flex;
+    justify-content: center;
+    background-color: #FEE202;
+    border: 4px solid black;
+    width: 200px;
+    height: 100px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    font-size: 40px;
+    font-weight: bolder;
+    text-transform: uppercase;
+    text-align: justify;
+    line-height: 100px;
+    box-sizing: border-box;
+    }
+    
+.btn-position {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+
+    }
+    
+    /* Bottom Buttons*/
+    .last-btns {
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    width: auto;
+    margin-bottom: 70px;
+    }
+    
+    
+
 
 
 

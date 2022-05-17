@@ -44,7 +44,7 @@
           alt="right arrow key"
         />
       </div>
-      <div>
+      <div class="btn-position">
         <button id="startBtn" type="button" class="btn btn-start">Start</button>
       </div>
       <!-- Experiences with images turning into buttons -->
@@ -75,21 +75,27 @@
       <div id="game-board">
         <canvas id="my-canvas" width="1500" height="844"></canvas>
       </div>
-      <div>
+      <div class="gameplay-Btns">
         <button id="restartBtn" type="button" class="btn btn-restart">
           Restart
         </button>
+        <input
+          id="muteBtn"
+          class="sound"
+          type="image"
+          src="/images/sound_off.png"
+          name="submit"
+          width="44"
+          height="70"
+          alt="sound on icon"
+        />
       </div>
     </div>
     <!-- End of Game Play Page -->
     <!-- Start of Gameover Page -->
     <div id="gameover">
-      <div>
-        <img
-          class="gamelogo"
-          src="/images/gameover.png"
-          alt="Game Over image"
-        />
+      <div id="gologo">
+        <img src="/images/gameover.png" alt="Game Over image" />
       </div>
       <div class="highscores">
         <p id="go_uktext">
@@ -98,10 +104,30 @@
         </p>
         <ol id="high-scores-table"></ol>
       </div>
-      <div>
+      <div class="btn-position">
         <button id="tryagainBtn" type="button" class="btn btn-tryagain">
           Try Again
         </button>
+        <div class="last-btns">
+          <input
+            class="sound"
+            type="image"
+            src="/images/sound_off.png"
+            name="submit"
+            width="44"
+            height="70"
+            alt="sound on icon"
+          />
+          <input
+            class="lang"
+            type="image"
+            src="/images/pt_flag.png"
+            name="submit"
+            width="70"
+            height="70"
+            alt="PT language icon"
+          />
+        </div>
       </div>
       <!-- <div>
             <img class="sound" src="/images/sound_off.png" alt="sound on icon">
@@ -111,8 +137,8 @@
     <!-- End of Gameover Page -->
     <!-- Start of Winner Page -->
     <div id="winner">
-      <div>
-        <img class="gamelogo" src="/images/winner.png" alt="You Win image" />
+      <div id="winlogo">
+        <img src="/images/winner.png" alt="You Win image" />
       </div>
       <div class="highscores">
         <p id="yw_uktext">
@@ -122,14 +148,30 @@
         </p>
         <ol id="high-scores-table"></ol>
       </div>
-      <div>
+      <div class="btn-position">
         <button id="playagainBtn" type="button" class="btn btn-playagain">
           Play Again
         </button>
       </div>
       <div class="last-btns">
-        <img class="sound" src="/images/sound_off.png" alt="sound on icon" />
-        <img class="lang" src="/images/pt_flag.png" alt="PT language icon" />
+        <input
+          class="sound"
+          type="image"
+          src="/images/sound_off.png"
+          name="submit"
+          width="44"
+          height="70"
+          alt="sound on icon"
+        />
+        <input
+          class="lang"
+          type="image"
+          src="/images/pt_flag.png"
+          name="submit"
+          width="70"
+          height="70"
+          alt="PT language icon"
+        />
       </div>
     </div>
     <!-- End of Gameover Page -->

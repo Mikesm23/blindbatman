@@ -1,12 +1,12 @@
 // Canvas
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
+const gamePlayDiv = document.querySelector("#gameplay");
 
 // Canvas Background
 let bg = new Image();
 bg.src = "/images/bgimage.jpeg";
 canvas.style.border = "4px solid #FEE202";
-// How can I remove the canvas of the Splash Page?
 
 // Audio
 let gameMusic = new Audio("/audio/batman.mp3");
@@ -31,10 +31,10 @@ let batmanRightX = (canvas.width - batmanRightW) / 2;
 let batmanRightY = canvas.height - batmanRightH;
 
 
-let batmanLeftX; 
-let batmanLeftY; 
+/*let batmanLeftX = 100; 
+let batmanLeftY = 104; 
 let batmanLeftW = 100;
-let batmanLeftH = 104;
+let batmanLeftH = 104;*/
 
 let batmanSpeed = 10;
 
@@ -123,6 +123,16 @@ bat.src = "/images/bat.png";
 
 let animationFrameId;
 
+// Elements Falling from  the Sky
+/*let elementsArray = [
+    { x: middle, y: -200 },
+    { x: middle - 200, y: -600 },
+    { x: middle, y: -900 },
+    { img: joker, x: middle, y: -200, width: jokerW, height: jokerH },
+    { img: penguin, x: middle - 200, y: -1000, width: penguinW, height: penguinH },
+    { img: batSignal, x: middle, y: -1800, width: batSignalW, height: batSignalH },
+  ];*/
+
 // All the functions
 /* function animate() {
     startGame()
@@ -132,13 +142,15 @@ let animationFrameId;
 function startGame() {
     // getPlayerName()
     canvas.style.display = "block";
+    gamePlayDiv.style.display = "block";
     splashPage.style.display = "none";
     gameOverPage.style.display = "none";
     youWinPage.style.display = "none";
     drawImages()
     moveBatman()
-    gameMusic.play() // to pause: musicIntro.pause()
+    gameMusic.play() // to pause: gameMusic.pause()
  
+    animationFrameId = requestAnimationFrame(startGame);
 };
 
 function drawImages() {
@@ -154,15 +166,38 @@ function moveBatman() {
     // ctx.clearRect(0, 0, canvas.width, canvas.height);
     if (isBatmanGoingLeft) { // Later change Batman image to go left
         if (batmanRightX > 0) {
+            batmanRight.src = "/images/bb_goleft.png";
+            console.log('isBatmanGoingLeft');
             batmanRightX -= batmanSpeed;
         }
       } else if (isBatmanGoingRight) {
         if (batmanRightX < canvas.width - batmanRightW) {
+            batmanRight.src = "/images/bb_goright.png";
+            console.log('isBatmanGoingRight');
             batmanRightX += batmanSpeed;
         }
       }
-    animationFrameId = requestAnimationFrame(moveBatman);
 };
+
+/*function moveElements () {
+
+    for (let i = 0; i < elementsArray.length; i++) {
+        ctx.drawImage(carPink, elementsArray[i].x, elementsArray[i].y, 80, 110);
+        ctx.drawImage(
+            elementsArray[i].img,
+            elementsArray[i].x,
+            elementsArray[i].y,
+            elementsArray[i].width,
+            elementsArray[i].height
+        );
+        elementsArray[i].y += speed;
+        //ctx.drawImage(car, middle + 50, height, 80, 150);
+        if (elementsArray[i].y > canvas.height) {
+            elementsArray[i].y = -700;
+            elementsArray[i].y = -1900;
+        }
+    }
+}; */
 
 /* function getPlayerName() {
     player = prompt("Hello! Who is going to help Batman today?");
@@ -206,6 +241,10 @@ function insertScore() {
 // What happens when Player lose
 function gameOver () {
     gameOverPage.style.display = "block";
+    canvas.style.display = "none";
+    splashPage.style.display = "none";
+    gamePlayDiv.style.display = "none";
+    youWinPage.style.display = "none";
     gameMusic.pause()
     gameOverMusic.play()
 }
@@ -213,8 +252,12 @@ function gameOver () {
 // What happens when Player wins
 function youWin () {
     youWinPage.style.display = "block";
+    gameOverPage.style.display = "none";
+    canvas.style.display = "none";
+    splashPage.style.display = "none";
+    gamePlayDiv.style.display = "none";
     gameMusic.pause()
-    gameOverMusic.play()
+    winSound.play()
 }
 */
 
@@ -248,9 +291,11 @@ function unmuteAudio() {
     winSound.play = false
 }
 
-
-// Navigation
+// Navigation (what happens when page loads)
 window.addEventListener("load", () => {
+    gamePlayDiv.style.display = "none";
+    gameOverPage.style.display = "none";
+    youWinPage.style.display = "none";
     startBtn.addEventListener("click", () => {
     startGame();
         console.log("start button pushed!");
@@ -267,8 +312,8 @@ window.addEventListener("load", () => {
     restartGame();
     console.log("play again button pushed!");
   });
-    /*
-    switchAudio.addEventListener("click", () => {
+    
+    /*switchAudio.addEventListener("click", () => {
     muteAudio();
     if (muteAudio === false) {
         let soundBtn = document.querySelector('.sound');
@@ -279,21 +324,23 @@ window.addEventListener("load", () => {
         soundBtn.setAttribute("src", "/images/sound_off.png");
         console.log("unmute audio button pushed!");   
     }      
-  });
-  */
-
-   /* switchAudio.addEventListener("click", () => {
+  });*/
+  
+/*
+    switchAudio.addEventListener("click", () => {
     unmuteAudio();
     let soundBtn = document.querySelector('.sound');
     soundBtn.setAttribute("src", "/images/sound_off.png");
     console.log("unmute audio button pushed!");
-  });*/
+  });
+  */
 });
+
 
 // Commands Arrows
 document.addEventListener("keydown", event => {
     if (event.code === "ArrowLeft") {
-      isBatmanGoingLeft = true; //I want to change Batman image when he switches direction
+      isBatmanGoingLeft = true;
     }
     if (event.code === "ArrowRight") {
       isBatmanGoingRight = true;
