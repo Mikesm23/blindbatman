@@ -70,7 +70,8 @@ let isBatmanGoingLeft = false;
 let isBatmanGoingRight = false;
 
 // Score Variables
-let newScore = 0;
+const scoreNumber = document.querySelector("#score-number")
+let score = 0;
 let highScores = [];
 let highScoresTable = document.getElementById("high-scores-table");
 
@@ -324,7 +325,8 @@ for (let i = 0; i < batSignalArray.length; i++) {
         //checks if the bottom of the player car is touching the top of the traffic car
         batmanRightY + batmanRightH - 10 > batSignalArray[i].y
       ) {
-        score = newScore + 1;
+        score += 1;
+        scoreNumber.innerHTML = score;
       }
     if (score === 15) {
         youWin()
@@ -347,19 +349,19 @@ window.onload = greet;
 
 
 function insertScore() {
-    // Trying to divide scores. Is this newScore
-     if (newScore <= 5) {
+    // Trying to divide scores.
+     if (score <= 5) {
          prompt(`Wow ${player}! You're really bad at this... Sure you want this to be on record?`);
-     } else if (newScore > 5 && newScore <= 10) {
+     } else if (score > 5 && score <= 10) {
         prompt(`Not bad ${player}! You tried it right? That's what losers say. Go back and get better!`);
-     } else if (newScore > 10 && newScore < 14) {
+     } else if (score > 10 && score < 14) {
         prompt(`Almost there ${player}! But anyway...Batman is still blind so not much of a help here`);
      } else {
         prompt(`YEAH ${player}! You did it! Batman regained his X-Ray vision again!`);
      }
      
     // Attempt to insert players score to the HighScores List
-     let currentHighScore = {name: player, score: newScore};
+     let currentHighScore = {name: player, score: score};
      highScores.push(currentHighScore);
      let rank = highScores.sort((a,b) => {
         return b.score - a.score;

@@ -75,20 +75,30 @@
       <div id="game-board">
         <canvas id="my-canvas" width="1500" height="844"></canvas>
       </div>
-      <div class="gameplay-Btns">
-        <button id="restartBtn" type="button" class="btn btn-restart">
-          Restart
-        </button>
-        <input
-          id="muteBtn"
-          class="sound"
-          type="image"
-          src="/images/sound_off.png"
-          name="submit"
-          width="44"
-          height="70"
-          alt="sound on icon"
-        />
+      <div id="gameplay-elements">
+        <div>
+          <img
+            id="current-score"
+            src="/images/score.png"
+            alt="current score title image"
+          />
+        </div>
+        <div><span id="score-number">0</span></div>
+        <div>
+          <button id="restartBtn" type="button">Restart</button>
+        </div>
+        <div>
+          <input
+            id="muteBtn"
+            class="sound"
+            type="image"
+            src="/images/sound_off.png"
+            name="submit"
+            width="44"
+            height="70"
+            alt="sound on icon"
+          />
+        </div>
       </div>
     </div>
     <!-- End of Game Play Page -->
@@ -97,17 +107,24 @@
       <div id="gologo">
         <img src="/images/gameover.png" alt="Game Over image" />
       </div>
-      <div class="highscores">
-        <p id="go_uktext">
+      <div id="go_uktext">
+        <p>
           Bad luck.. that Batman only has you to help him. Useless.<br />He's
           still blind because of you.
         </p>
-        <ol id="high-scores-table"></ol>
       </div>
-      <div class="btn-position">
-        <button id="tryagainBtn" type="button" class="btn btn-tryagain">
-          Try Again
-        </button>
+      <div class="highscores">
+        <div id="scoreboard">
+          <img src="/images/highscore.png" alt="highscore title image" />
+        </div>
+        <div id="high-scores-table"><ol></ol></div>
+      </div>
+      <div>
+        <div class="btn-position">
+          <button id="tryagainBtn" type="button" class="btn btn-tryagain">
+            Try Again
+          </button>
+        </div>
         <div class="last-btns">
           <input
             class="sound"
@@ -140,13 +157,22 @@
       <div id="winlogo">
         <img src="/images/winner.png" alt="You Win image" />
       </div>
-      <div class="highscores">
+      <div>
         <p id="yw_uktext">
           GREAT JOB!<br />Batman is a lucky Super Hero to have you by his side.
           Impressive.<br />
           Now he is seeing again!
         </p>
-        <ol id="high-scores-table"></ol>
+      </div>
+      <div class="highscores">
+        <div>
+          <img
+            id="scoreboard"
+            src="/images/highscore.png"
+            alt="highscore title image"
+          />
+        </div>
+        <div><ol id="high-scores-table"></ol></div>
       </div>
       <div class="btn-position">
         <button id="playagainBtn" type="button" class="btn btn-playagain">
