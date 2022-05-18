@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="/images/icon.ico" />
     <link rel="stylesheet" href="/styles/style.css" />
     <title>Blind Batman</title>
@@ -21,11 +21,12 @@
       <div>
         <h2 id="lp_uktext">
           Batman needs your help player. He's blind and he needs YOU to help him
-          get the X-Ray vision back. <br />
-          Stay away from the Penguins and avoid Jokers at all costs.<br />Catch
-          some Bats if you're hurt and collect Batsignals to move up to the next
-          level.<br />If you collect enough of those Batman will be able to see
-          again.<br />Don't leave Batman blind please. Gotham appreciates it.
+          get the X-Ray vision back. <br /><br />
+          Stay away from the Penguins and avoid Jokers at all costs.<br /><br />Catch
+          some Lemons if you're hurt and collect Bat Signals to move up to the
+          next level.<br /><br />If you collect enough of those, Batman will be
+          able to see again.<br /><br />Don't leave Batman blind please. Gotham
+          appreciates it.
         </h2>
       </div>
       <div class="arrows">
@@ -45,9 +46,8 @@
         />
       </div>
       <div class="btn-position">
-        <button id="startBtn" type="button" class="btn btn-start">Start</button>
+        <button id="startBtn" type="button">Start</button>
       </div>
-      <!-- Experiences with images turning into buttons -->
       <div class="last-btns">
         <input
           class="sound"
@@ -69,6 +69,12 @@
         />
       </div>
     </div>
+    <!-- <audio
+      id="intro-song"
+      src="./audio/intro_song.m4a"
+      autoplay="autoplay"
+      loop="loop"
+    ></audio> -->
     <!-- End of Splash Page -->
     <!-- Start of Game Play Page -->
     <div id="gameplay">
@@ -116,7 +122,7 @@
       </div>
       <div id="go_uktext">
         <p>
-          Bad luck.. that Batman only has you to help him. Useless.<br />He's
+          Bad luck.. that Batman only has you to help him. Useless.<br /><br />He's
           still blind because of you.
         </p>
       </div>
@@ -128,9 +134,7 @@
       </div>
       <div>
         <div class="btn-position">
-          <button id="tryagainBtn" type="button" class="btn btn-tryagain">
-            Try Again
-          </button>
+          <button id="tryagainBtn" type="button">Try Again</button>
         </div>
         <div class="last-btns">
           <input
@@ -153,10 +157,6 @@
           />
         </div>
       </div>
-      <!-- <div>
-            <img class="sound" src="/images/sound_off.png" alt="sound on icon">
-            <img class="lang" src="/images/pt_flag.png" alt="PT language icon">
-        </div> -->
     </div>
     <!-- End of Gameover Page -->
     <!-- Start of Winner Page -->
@@ -166,9 +166,10 @@
       </div>
       <div>
         <p id="yw_uktext">
-          GREAT JOB!<br />Batman is a lucky Super Hero to have you by his side.
+          GREAT JOB!<br />Batman is a lucky Super Hero to have you by his
+          side.<br /><br />
           Impressive.<br />
-          Now he is seeing again!
+          Now he's seeing again!
         </p>
       </div>
       <div class="highscores">
@@ -182,9 +183,7 @@
         <div><ol id="high-scores-table"></ol></div>
       </div>
       <div class="btn-position">
-        <button id="playagainBtn" type="button" class="btn btn-playagain">
-          Play Again
-        </button>
+        <button id="playagainBtn" type="button">Play Again</button>
       </div>
       <div class="last-btns">
         <input
@@ -207,7 +206,7 @@
         />
       </div>
     </div>
-    <!-- End of Gameover Page -->
+    <!-- End of Winner Page -->
     <script src="/scripts/script.js"></script>
   </body>
 </html>

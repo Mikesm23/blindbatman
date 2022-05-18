@@ -8,21 +8,58 @@ let bg = new Image();
 bg.src = "/images/bgimage.jpeg";
 canvas.style.border = "4px solid #FEE202";
 
+// Images Sources
+let batmanRight = new Image();
+batmanRight.src = "/images/bb_goright.png";
+let batmanLeft = new Image();
+batmanLeft.src = "/images/bb_goleft.png";
+let joker = new Image();
+joker.src = "/images/joker.png";
+let penguin = new Image();
+penguin.src = "/images/penguin.png";
+let batSignal = new Image();
+batSignal.src = "/images/batsignal.png";
+let lemon = new Image();
+lemon.src = "/images/lemon.png";
+let winImage = new Image();
+winImage.src = "/images/yeah_win.png";
+// If time add sprite image of bat
+
 // Audio
+let introMusic = new Audio("/audio/intro_song.m4a");
+introMusic.volume = 0.1; // Played in Splash Page
 let gameMusic = new Audio("/audio/batman.mp3");
 gameMusic.volume = 0.1; // Played in Gameplay Page
 let hitSound = new Audio("/audio/hit.m4a");
-hitSound.volume = 0.1; // Played when Batman is hit
+hitSound.volume = 0.5; // Played when Batman is hit
 let sighSound = new Audio("/audio/sigh.m4a");
-sighSound.volume = 0.1; // Played when Batman improves health
+sighSound.volume = 0.5; // Played when Batman improves health
 let catchSound = new Audio("/audio/catch.m4a");
-catchSound.volume = 0.1; // Played when Batman catches symbol
+catchSound.volume = 1,5; // Played when Batman catches symbol
 let defeatSound = new Audio("/audio/game_defeat.m4a");
-defeatSound.volume = 0.1; // Played when Batman loses
+defeatSound.volume = 1; // Played when player loses
 let gameOverMusic = new Audio("/audio/gameover_sound.m4a");
 gameOverMusic.volume = 0.1; // Played when Gameover page loads
+let yeahSound = new Audio("/audio/yeah.m4a");
+yeahSound.volume = 1; // Played when player wins
 let winSound = new Audio("/audio/winsound.m4a");
 winSound.volume = 0.1; // Played when Winner page loads
+
+// Pages
+const splashPage = document.querySelector(".splashpage");
+const gameBoardPage = document.getElementById("game-board");
+const gameOverPage = document.getElementById("gameover");
+const youWinPage = document.getElementById("winner");
+
+// Buttons
+let startBtn = document.querySelector("#startBtn");
+let restartBtn = document.querySelector("#restartBtn");
+let tryAgainBtn = document.querySelector("#tryagainBtn");
+let playAgainBtn = document.querySelector("#playagainBtn");
+let switchAudio = document.querySelector(".sound");
+let healthBarImg = document.querySelector("#health-bar");
+let soundOnBtn = document.querySelector('.sound');
+let soundOffBtn = document.querySelector('.sound');
 
 // Batman Related Variables
 let batmanW = 100;
@@ -80,41 +117,6 @@ let health = 6;
 // Player Variable
 let player = '';
 
-// Pages
-const splashPage = document.querySelector(".splashpage");
-const gameBoardPage = document.getElementById("game-board");
-const gameOverPage = document.getElementById("gameover");
-const youWinPage = document.getElementById("winner");
-
-// Buttons
-let startBtn = document.querySelector("#startBtn");
-let restartBtn = document.querySelector("#restartBtn");
-let tryAgainBtn = document.querySelector("#tryagainBtn");
-let playAgainBtn = document.querySelector("#playagainBtn");
-let switchAudio = document.querySelector(".sound");
-let healthBarImg = document.querySelector("#health-bar");
-
-// Images Sources
-
-let batmanRight = new Image();
-batmanRight.src = "/images/bb_goright.png";
-let batmanLeft = new Image();
-batmanLeft.src = "/images/bb_goleft.png";
-let joker = new Image();
-joker.src = "/images/joker.png";
-let penguin = new Image();
-penguin.src = "/images/penguin.png";
-let batSignal = new Image();
-batSignal.src = "/images/batsignal.png";
-let lemon = new Image();
-lemon.src = "/images/lemon.png";
-let winImage = new Image();
-winImage.src = "/images/yeah_win.png";
-// If time add sprite image of bat
-
-
-let animationFrameId;
-
 // Generate random positions for the elements falling
 let randomXPlacement = () => {
     let biggestX = canvas.width - 20; // what is this?
@@ -143,7 +145,6 @@ let jokerArray = [
 
   let penguinArray = [
     { img: penguin, x: randomXPlacement(), y: -100, width: penguinW, height: penguinH},
-    { img: penguin, x: randomXPlacement(), y: -300, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -500, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -700, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -900, width: penguinW, height: penguinH},
@@ -152,6 +153,7 @@ let jokerArray = [
     { img: penguin, x: randomXPlacement(), y: -1500, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -1700, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -1900, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -2100, width: penguinW, height: penguinH},
     /*{ img: penguin, x: randomXPlacement(), y: -1050, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -1150, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -1250, width: penguinW, height: penguinH},
@@ -160,10 +162,10 @@ let jokerArray = [
 
   let batSignalArray = [
     { img: batSignal, x: randomXPlacement(), y: -100, width: batSignalW, height: batSignalH},
-    { img: batSignal, x: randomXPlacement(), y: -600, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: randomXPlacement(), y: -1100, width: batSignalW, height: batSignalH  },
-    { img: batSignal, x: randomXPlacement(), y: -1600, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: randomXPlacement(), y: -2100, width: batSignalW, height: batSignalH  },
+    { img: batSignal, x: randomXPlacement(), y: -1000, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -1900, width: batSignalW, height: batSignalH  },
+    { img: batSignal, x: randomXPlacement(), y: -2800, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -3700, width: batSignalW, height: batSignalH  },
     /*{ img: batSignal, x: randomXPlacement(), y: -600, width: batSignalW, height: batSignalH },
     { img: batSignal, x: randomXPlacement(), y: -700, width: batSignalW, height: batSignalH  },
     { img: batSignal, x: randomXPlacement(), y: -800, width: batSignalW, height: batSignalH },
@@ -186,15 +188,7 @@ let jokerArray = [
     { img: lemon, x: randomXPlacement(), y: -1525, width: lemonW, height: lemonH},
   ];
 
-
-
-// All the functions
-/* function animate() {
-    startGame()
-};
-*/
-
-
+let animationFrameId;
 
 function startGame() {
     // getPlayerName()
@@ -206,8 +200,8 @@ function startGame() {
     drawImages()
     moveBatman()
     moveElements()
-    healthBar()
-    // gameMusic.play()
+    // healthBar()
+    gameMusic.play()
  
     animationFrameId = requestAnimationFrame(startGame);
 };
@@ -234,7 +228,7 @@ function healthBar() {
     healthBarImg.src = "/images/healthbar_empty.png";
     defeatSound.play()
     cancelAnimationFrame(animationFrameId)
-    gameOver()
+    setTimeout(gameOver(), 5000)
   }
 }
 
@@ -266,19 +260,18 @@ function moveElements () {
         // Joker Collision
         if (
           //checks if the bottom of joker touches the top of batman
-          jokerArray[i].y + jokerArray[i].height >= batmanY &&
+          jokerArray[i].y + jokerArray[i].height >= batmanY + 10 &&
           //checks if the right side of joker is more to the right than batman
           batmanX + batmanW > jokerArray[i].x &&
           //checks if the left side of joker is touching the left side of batman
           batmanX < jokerArray[i].x + jokerArray[i].width &&
-          //checks if the bottom of joker is touching the top of batman
+          //checks if the bottom of Batman is touching the top of Joker
           batmanY + batmanH > jokerArray[i].y
         ) {jokerArray[i].y = -100
           health = health -2;
           hitSound.play()
         }
         // Joker Damages
-        // Batman dies when hit by Joker/Penguin/BatSignal/Lemon. Should decrease only 2 bars in Health bar
         if (health === 6) { 
           healthBarImg.src = "/images/healthbar_full.png";
         } else if (health === 5) {
@@ -295,7 +288,7 @@ function moveElements () {
           healthBarImg.src = "/images/healthbar_empty.png";
           defeatSound.play()
           cancelAnimationFrame(animationFrameId)
-          gameOver()
+          setTimeout(gameOver(), 5000)
         }
     }
     // Penguin Movements
@@ -307,7 +300,7 @@ function moveElements () {
         }
         // Penguin Collision
         if (
-          penguinArray[i].y + penguinArray[i].height >= batmanY &&
+          penguinArray[i].y + penguinArray[i].height >= batmanY + 10 &&
           batmanX + batmanW > penguinArray[i].x &&
           batmanX < penguinArray[i].x + penguinArray[i].width &&
           batmanY + batmanH > penguinArray[i].y
@@ -316,8 +309,6 @@ function moveElements () {
           hitSound.play()
         }
         // Penguin Damages
-        // Penguin should decrease 1 bar in Health bar
-        // Instead of the IF just past healthBar()
         if (health === 6) { 
           healthBarImg.src = "/images/healthbar_full.png";
         } else if (health === 5) {
@@ -334,7 +325,7 @@ function moveElements () {
           healthBarImg.src = "/images/healthbar_empty.png";
           defeatSound.play()
           cancelAnimationFrame(animationFrameId)
-          gameOver()
+          setTimeout(gameOver(), 5000)
         }
     }
     // Lemon Movements Collision
@@ -346,7 +337,7 @@ function moveElements () {
       }
       // Lemon Collision
       if (
-        lemonArray[i].y + lemonArray[i].height >= batmanY &&
+        lemonArray[i].y + lemonArray[i].height >= batmanY + 10  &&
         batmanX + batmanW > lemonArray[i].x &&
         batmanX < lemonArray[i].x + lemonArray[i].width &&
         batmanY + batmanH > lemonArray[i].y
@@ -355,8 +346,6 @@ function moveElements () {
         sighSound.play()
       }
       // Lemon Vitamins
-      // Penguin should decrease 1 bar in Health bar
-      // Instead of the IF just past healthBar()
       if (health === 6) { 
         healthBarImg.src = "/images/healthbar_full.png";
       } else if (health === 5) {
@@ -373,7 +362,7 @@ function moveElements () {
         healthBarImg.src = "/images/healthbar_empty.png";
         defeatSound.play()
         cancelAnimationFrame(animationFrameId)
-        gameOver()
+        setTimeout(gameOver(), 5000)
       }
   }
     // Bat Signal Movements Points & Collision
@@ -401,7 +390,7 @@ function moveElements () {
         if (score === 15) { 
           winImage.src = "/images/yeah_win.png";
           // If time add sprite image of fireworks
-          // defeatSound.play()
+          yeahSound.play()
           cancelAnimationFrame(animationFrameId)
           youWin()
         }
@@ -447,19 +436,20 @@ function insertScore() {
 };
 */
 // What happens when Player lose
-/*function gameOver() {
+function gameOver() {
     gameOverPage.style.display = "block";
     canvas.style.display = "none";
     splashPage.style.display = "none";
     gamePlayDiv.style.display = "none";
     youWinPage.style.display = "none";
     gameMusic.pause()
+    defeatSound.pause()
     gameOverMusic.play()
     cancelAnimationFrame(animationFrameId)
 }
 
 // What happens when Player wins
-function youWin() {
+/*function youWin() {
     youWinPage.style.display = "block";
     gameOverPage.style.display = "none";
     canvas.style.display = "none";
@@ -470,9 +460,6 @@ function youWin() {
     cancelAnimationFrame(animationFrameId)
 }
 */
-function restartGame() {
-    startGame()
-};
 
 function tryAgain() {
     startGame()
@@ -483,21 +470,23 @@ function playAgain() {
 };
 
 function muteAudio() {
-    gameMusic.muted = true
-    hitSound.muted = true
-    sighSound.muted = true
-    defeatSound.muted = true
-    gameOverMusic.muted = true
-    winSound.muted = true   
+    introMusic.pause = true
+    gameMusic.pause = true
+    hitSound.pause = true
+    sighSound.pause = true
+    defeatSound.pause = true
+    gameOverMusic.pause = true
+    winSound.pause = true   
 }
 
 function unmuteAudio() {
-    gameMusic.play = false
-    hitSound.play = false
-    sighSound.play = false
-    defeatSound.play = false
-    gameOverMusic.play = false
-    winSound.play = false
+    introMusic.play = true
+    gameMusic.play = true
+    hitSound.play = true
+    sighSound.play = true
+    defeatSound.play = true
+    gameOverMusic.play = true
+    winSound.play = true
 }
 
 // Navigation (what happens when page loads)
@@ -509,40 +498,34 @@ window.addEventListener("load", () => {
     startGame();
         console.log("start button pushed!");
   });
-    restartBtn.addEventListener("click", () => {
+    /*restartBtn.addEventListener("click", () => {
     startGame()
     console.log("restart button pushed!");
   });
     tryAgainBtn.addEventListener("click", () => {
-    restartGame();
+    startGame()
     console.log("try again button pushed!");
   });
     playAgainBtn.addEventListener("click", () => {
-    restartGame();
+    startGame()
     console.log("play again button pushed!");
-  });
+  });*/
+
+ /* window.onload = function() {
+    document.getElementById("intro-song").play();
+  } */
     
     /*switchAudio.addEventListener("click", () => {
     muteAudio();
-    if (muteAudio === false) {
-        let soundBtn = document.querySelector('.sound');
+    if (muteAudio) {
         soundBtn.setAttribute("src", "/images/sound_on.png");
         console.log("mute audio button pushed!");
-    } else {
-        let soundBtn = document.querySelector('.sound');
+    } else (unmuteAudio() {
         soundBtn.setAttribute("src", "/images/sound_off.png");
         console.log("unmute audio button pushed!");   
     }      
   });*/
   
-/*
-    switchAudio.addEventListener("click", () => {
-    unmuteAudio();
-    let soundBtn = document.querySelector('.sound');
-    soundBtn.setAttribute("src", "/images/sound_off.png");
-    console.log("unmute audio button pushed!");
-  });
-  */
 });
 
 
