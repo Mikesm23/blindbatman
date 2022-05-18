@@ -63,7 +63,7 @@ let isBatmanGoingLeft = false;
 let isBatmanGoingRight = false;
 
 // Score Variables
-const scoreNumber = document.querySelector("#score-number")
+let scoreNumber = document.querySelector("#score-number")
 let score = 0;
 let highScores = [];
 let highScoresTable = document.getElementById("high-scores-table");
@@ -92,7 +92,6 @@ let restartBtn = document.querySelector("#restartBtn");
 let tryAgainBtn = document.querySelector("#tryagainBtn");
 let playAgainBtn = document.querySelector("#playagainBtn");
 let switchAudio = document.querySelector(".sound");
-
 let healthBarImg = document.querySelector("#health-bar");
 
 // Images Sources
@@ -109,6 +108,9 @@ let batSignal = new Image();
 batSignal.src = "/images/batsignal.png";
 let lemon = new Image();
 lemon.src = "/images/lemon.png";
+let winImage = new Image();
+winImage.src = "/images/yeah_win.png";
+// If time add sprite image of bat
 
 
 let animationFrameId;
@@ -120,7 +122,6 @@ let randomXPlacement = () => {
     let randomX = Math.floor(
       Math.random() * (biggestX - smallestX + 1) + smallestX
     );
-    console.log(randomX);
     return randomX;
   };
 
@@ -205,6 +206,7 @@ function startGame() {
     drawImages()
     moveBatman()
     moveElements()
+    healthBar()
     // gameMusic.play()
  
     animationFrameId = requestAnimationFrame(startGame);
@@ -213,6 +215,27 @@ function startGame() {
 function drawImages() {
     ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
     ctx.drawImage(batmanRight, batmanX, batmanY, batmanW, batmanH);
+}
+
+function healthBar() {
+  if (health === 6) { 
+    healthBarImg.src = "/images/healthbar_full.png";
+  } else if (health === 5) {
+    healthBarImg.src = "/images/healthbar_five.png";
+  } else if (health === 4) {
+    healthBarImg.src = "/images/healthbar_four.png";
+  } else if (health === 3) {
+    healthBarImg.src = "/images/healthbar_three.png";
+  } else if (health === 2) {
+    healthBarImg.src = "/images/healthbar_two.png";
+  } else if (health === 1) {
+    healthBarImg.src = "/images/healthbar_one.png";
+  } else {
+    healthBarImg.src = "/images/healthbar_empty.png";
+    defeatSound.play()
+    cancelAnimationFrame(animationFrameId)
+    gameOver()
+  }
 }
 
 function moveBatman() {
@@ -232,13 +255,15 @@ function moveBatman() {
 };
 
 function moveElements () {
-
+    
+    // Joker Movement
     for (let i = 0; i < jokerArray.length; i++) {
         ctx.drawImage(jokerArray[i].img, jokerArray[i].x, jokerArray[i].y, jokerArray[i].width, jokerArray[i].height);
         jokerArray[i].y += speedJoker;
         if (jokerArray[i].y > canvas.height) {
             jokerArray[i].y = -100;
         }
+        // Joker Collision
         if (
           //checks if the bottom of joker touches the top of batman
           jokerArray[i].y + jokerArray[i].height >= batmanY &&
@@ -248,12 +273,12 @@ function moveElements () {
           batmanX < jokerArray[i].x + jokerArray[i].width &&
           //checks if the bottom of joker is touching the top of batman
           batmanY + batmanH > jokerArray[i].y
-        ) {health = health - 2;
+        ) {jokerArray[i].y = -100
+          health = health -2;
           hitSound.play()
-          //scoreNumber.innerHTML = health-bar;
-        } 
-        // Can I have a function for the Score Board? Like I write this if statement and apply it to every collision. Same with score? It reduces the redundency of code.
-        // Batman dies when hit by Joker. Should decrease only 2 bars in Health bar
+        }
+        // Joker Damages
+        // Batman dies when hit by Joker/Penguin/BatSignal/Lemon. Should decrease only 2 bars in Health bar
         if (health === 6) { 
           healthBarImg.src = "/images/healthbar_full.png";
         } else if (health === 5) {
@@ -269,27 +294,30 @@ function moveElements () {
         } else {
           healthBarImg.src = "/images/healthbar_empty.png";
           defeatSound.play()
-          cancelanimationFrame(animationFrameId)
+          cancelAnimationFrame(animationFrameId)
           gameOver()
         }
     }
-
+    // Penguin Movements
     for (let i = 0; i < penguinArray.length; i++) {
         ctx.drawImage(penguinArray[i].img, penguinArray[i].x, penguinArray[i].y, penguinArray[i].width, penguinArray[i].height);
         penguinArray[i].y += speedPenguin;
         if (penguinArray[i].y > canvas.height) {
             penguinArray[i].y = -100;
         }
+        // Penguin Collision
         if (
           penguinArray[i].y + penguinArray[i].height >= batmanY &&
           batmanX + batmanW > penguinArray[i].x &&
           batmanX < penguinArray[i].x + penguinArray[i].width &&
           batmanY + batmanH > penguinArray[i].y
-        ) {health = health - 1;
+        ) {penguinArray[i].y = -100
+          health = health -1;
           hitSound.play()
-        //scoreNumber.innerHTML = health-bar;
-        } 
+        }
+        // Penguin Damages
         // Penguin should decrease 1 bar in Health bar
+        // Instead of the IF just past healthBar()
         if (health === 6) { 
           healthBarImg.src = "/images/healthbar_full.png";
         } else if (health === 5) {
@@ -305,89 +333,81 @@ function moveElements () {
         } else {
           healthBarImg.src = "/images/healthbar_empty.png";
           defeatSound.play()
-          cancelanimationFrame(animationFrameId)
+          cancelAnimationFrame(animationFrameId)
           gameOver()
         }
     }
-
+    // Lemon Movements Collision
+    for (let i = 0; i < lemonArray.length; i++) {
+      ctx.drawImage(lemonArray[i].img, lemonArray[i].x, lemonArray[i].y, lemonArray[i].width, lemonArray[i].height);
+      lemonArray[i].y += speedLemon;
+      if (lemonArray[i].y > canvas.height) {
+        lemonArray[i].y = -2000;
+      }
+      // Lemon Collision
+      if (
+        lemonArray[i].y + lemonArray[i].height >= batmanY &&
+        batmanX + batmanW > lemonArray[i].x &&
+        batmanX < lemonArray[i].x + lemonArray[i].width &&
+        batmanY + batmanH > lemonArray[i].y
+      ) {lemonArray[i].y = -2000
+        health = health + 1;
+        sighSound.play()
+      }
+      // Lemon Vitamins
+      // Penguin should decrease 1 bar in Health bar
+      // Instead of the IF just past healthBar()
+      if (health === 6) { 
+        healthBarImg.src = "/images/healthbar_full.png";
+      } else if (health === 5) {
+        healthBarImg.src = "/images/healthbar_five.png";
+      } else if (health === 4) {
+        healthBarImg.src = "/images/healthbar_four.png";
+      } else if (health === 3) {
+        healthBarImg.src = "/images/healthbar_three.png";
+      } else if (health === 2) {
+        healthBarImg.src = "/images/healthbar_two.png";
+      } else if (health === 1) {
+        healthBarImg.src = "/images/healthbar_one.png";
+      } else {
+        healthBarImg.src = "/images/healthbar_empty.png";
+        defeatSound.play()
+        cancelAnimationFrame(animationFrameId)
+        gameOver()
+      }
+  }
+    // Bat Signal Movements Points & Collision
     for (let i = 0; i < batSignalArray.length; i++) {
         ctx.drawImage(batSignalArray[i].img, batSignalArray[i].x, batSignalArray[i].y, batSignalArray[i].width, batSignalArray[i].height);
         batSignalArray[i].y += speedBatSignal;
         if (batSignalArray[i].y > canvas.height) {
             batSignalArray[i].y = -100;
         }
+        // Bat Signal Collision
         if (
           batSignalArray[i].y + batSignalArray[i].height >= batmanY &&
           batmanX + batmanW > batSignalArray[i].x &&
           batmanX < batSignalArray[i].x + batSignalArray[i].width &&
           batmanY + batmanH > batSignalArray[i].y
-        ) {catchSound.play()
-          scoreNumber.innerHTML = health-bar;
-        } 
-        // Penguin should decrease 1 bar in Health bar
-        if (health === 6) { 
-          healthBarImg.src = "/images/healthbar_full.png";
-        } else if (health === 5) {
-          healthBarImg.src = "/images/healthbar_five.png";
-        } else if (health === 4) {
-          healthBarImg.src = "/images/healthbar_four.png";
-        } else if (health === 3) {
-          healthBarImg.src = "/images/healthbar_three.png";
-        } else if (health === 2) {
-          healthBarImg.src = "/images/healthbar_two.png";
-        } else if (health === 1) {
-          healthBarImg.src = "/images/healthbar_one.png";
-        } else {
-          healthBarImg.src = "/images/healthbar_empty.png";
-          defeatSound.play()
-          cancelanimationFrame(animationFrameId)
-          gameOver()
+        ) {
+          // Bat Signal Points
+          // Bat Signals should increase the Score by 1
+          batSignalArray[i].y = -100
+          score += 1;
+          catchSound.play()
+          scoreNumber.innerHTML = score
+        }         
+
+        if (score === 15) { 
+          winImage.src = "/images/yeah_win.png";
+          // If time add sprite image of fireworks
+          // defeatSound.play()
+          cancelAnimationFrame(animationFrameId)
+          youWin()
         }
     }
-
-   for (let i = 0; i < lemonArray.length; i++) {
-        ctx.drawImage(lemonArray[i].img, lemonArray[i].x, lemonArray[i].y, lemonArray[i].width, lemonArray[i].height);
-        lemonArray[i].y += speedLemon;
-        if (lemonArray[i].y > canvas.height) {
-          lemonArray[i].y = -2000;
-        }
-    }
-
 };
 
-
-/*
-// Bat Signal Points
-for (let i = 0; i < batSignalArray.length; i++) {
-    ctx.drawImage(
-    batSignalArray[i].img,
-    batSignalArray[i].x,
-    batSignalArray[i].y,
-    batSignalArray[i].width,
-    batSignalArray[i].height
-    );
-    batSignalArray[i].y += batSignalSpeed;
-    if (batSignalArray[i].y > canvas.height) {
-        batSignalArray[i].y = -5500; // It's sent way up? It's not what we did in the moveElements()?
-    }
-    if (
-        // checks if the bottom of the traffic car is touching the top of the player car
-        batSignalArray[i].y + batSignalArray[i].height >= batmanY + 10 &&
-        //checks if the right side of the player car is more to the right than the traffic car
-        batmanX + 120 > batSignalArray[i].x &&
-        // checks if the left side of the player car is touching the left side of the traffic car
-        batmanX < batSignalArray[i].x + batSignalArray[i].width &&
-        //checks if the bottom of the player car is touching the top of the traffic car
-        batmanY + batmanH - 10 > batSignalArray[i].y
-      ) {
-        score += 1;
-        scoreNumber.innerHTML = score;
-      }
-    if (score === 15) {
-        youWin()
-    }
-};    
-*/
 /* function getPlayerName() {
     player = prompt("Hello! Who is going to help Batman today?");
     if (player != null) {
@@ -426,9 +446,8 @@ function insertScore() {
 
 };
 */
-/*
 // What happens when Player lose
-function gameOver() {
+/*function gameOver() {
     gameOverPage.style.display = "block";
     canvas.style.display = "none";
     splashPage.style.display = "none";
@@ -436,8 +455,7 @@ function gameOver() {
     youWinPage.style.display = "none";
     gameMusic.pause()
     gameOverMusic.play()
-
-    // Insert Cancel animation frame
+    cancelAnimationFrame(animationFrameId)
 }
 
 // What happens when Player wins
@@ -449,9 +467,9 @@ function youWin() {
     gamePlayDiv.style.display = "none";
     gameMusic.pause()
     winSound.play()
+    cancelAnimationFrame(animationFrameId)
 }
 */
-
 function restartGame() {
     startGame()
 };
@@ -492,7 +510,7 @@ window.addEventListener("load", () => {
         console.log("start button pushed!");
   });
     restartBtn.addEventListener("click", () => {
-    startGame();
+    startGame()
     console.log("restart button pushed!");
   });
     tryAgainBtn.addEventListener("click", () => {
