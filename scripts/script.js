@@ -75,7 +75,7 @@ let gameIsOver = false;
 let youWin = false;
 
 // Health Status Variable
-let health = 5;
+let health = 6;
 
 // Player Variable
 let player = '';
@@ -93,6 +93,8 @@ let tryAgainBtn = document.querySelector("#tryagainBtn");
 let playAgainBtn = document.querySelector("#playagainBtn");
 let switchAudio = document.querySelector(".sound");
 
+let healthBarImg = document.querySelector("#health-bar");
+
 // Images Sources
 
 let batmanRight = new Image();
@@ -107,6 +109,7 @@ let batSignal = new Image();
 batSignal.src = "/images/batsignal.png";
 let lemon = new Image();
 lemon.src = "/images/lemon.png";
+
 
 let animationFrameId;
 
@@ -177,8 +180,8 @@ let jokerArray = [
 
   let lemonArray = [
     { img: lemon, x: randomXPlacement(), y: -125, width: lemonW, height: lemonH},
-    { img: lemon, x: randomXPlacement(), y: -525, width: lemonW, height: lemonH},
-    { img: lemon, x: randomXPlacement(), y: -1025, width: lemonW, height: lemonH},
+   // { img: lemon, x: randomXPlacement(), y: -525, width: lemonW, height: lemonH},
+    //{ img: lemon, x: randomXPlacement(), y: -1025, width: lemonW, height: lemonH},
     { img: lemon, x: randomXPlacement(), y: -1525, width: lemonW, height: lemonH},
   ];
 
@@ -236,6 +239,38 @@ function moveElements () {
         if (jokerArray[i].y > canvas.height) {
             jokerArray[i].y = -100;
         }
+        if (
+          // checks if the bottom of the traffic car is touching the top of the player car
+          jokerArray[i].y + jokerArray[i].height >= batmanY &&
+          //checks if the right side of the player car is more to the right than the traffic car
+          batmanX + batmanW > jokerArray[i].x &&
+          // checks if the left side of the player car is touching the left side of the traffic car
+          batmanX < jokerArray[i].x + jokerArray[i].width &&
+          //checks if the bottom of the player car is touching the top of the traffic car
+          batmanY + batmanH > jokerArray[i].y
+        ) {health = health - 2;
+          //scoreNumber.innerHTML = health-bar;};
+        } 
+
+        // Fix Image of Health bar (starts at five, must start full)
+        // Batman dies when hit by Joker. Should decrease 2 bars in Health bar
+        if (health === 6) { 
+          healthBarImg.src = "/images/healthbar_full.png";
+        } else if (health === 5) {
+          healthBarImg.src = "/images/healthbar_five.png";
+        } else if (health === 4) {
+          healthBarImg.src = "/images/healthbar_four.png";
+        } else if (health === 3) {
+          healthBarImg.src = "/images/healthbar_three.png";
+        } else if (health === 2) {
+          healthBarImg.src = "/images/healthbar_two.png";
+        } else if (health === 1) {
+          healthBarImg.src = "/images/healthbar_one.png";
+        } else {
+          healthBarImg.src = "/images/healthbar_empty.png";
+          cancelanimationFrame(animationFrameId)
+          gameOver()
+        }
     }
 
     for (let i = 0; i < penguinArray.length; i++) {
@@ -258,44 +293,13 @@ function moveElements () {
         ctx.drawImage(lemonArray[i].img, lemonArray[i].x, lemonArray[i].y, lemonArray[i].width, lemonArray[i].height);
         lemonArray[i].y += speedLemon;
         if (lemonArray[i].y > canvas.height) {
-          lemonArray[i].y = -100;
+          lemonArray[i].y = -2000;
         }
     }
 
 };
 
-// Collisions and points
-/*
-// Joker Collisions
-for (let i = 0; i < jokerArray.length; i++) {
-    ctx.drawImage(
-    jokerArray[i].img,
-    jokerArray[i].x,
-    jokerArray[i].y,
-    jokerArray[i].width,
-    jokerArray[i].height
-    );
-    jokerArray[i].y += jokerSpeed;
-    if (jokerArray[i].y > canvas.height) {
-        jokerArray[i].y = -5500; // It's sent way up? It's not what we did in the moveElements()?
-    }
-    if (
-        // checks if the bottom of the traffic car is touching the top of the player car
-        jokerArray[i].y + jokerArray[i].height >= batmanY + 10 && //why + 10?
-        //checks if the right side of the player car is more to the right than the traffic car
-        batmanX + 120 > jokerArray[i].x &&
-        // checks if the left side of the player car is touching the left side of the traffic car
-        batmanX < jokerArray[i].x + jokerArray[i].width &&
-        //checks if the bottom of the player car is touching the top of the traffic car
-        batmanY + batmanH - 10 > jokerArray[i].y
-      ) {
-        health = health - 1;
-      }
-      if (health <= 0) {
-        gameOver()
-      }
-};
-*/
+
 /*
 // Bat Signal Points
 for (let i = 0; i < batSignalArray.length; i++) {
@@ -376,6 +380,8 @@ function gameOver() {
     youWinPage.style.display = "none";
     gameMusic.pause()
     gameOverMusic.play()
+
+    // Insert Cancel animation frame
 }
 
 // What happens when Player wins
