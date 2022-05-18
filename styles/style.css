@@ -88,7 +88,7 @@ justify-content: space-evenly;
 }
 
 #current-score {
-margin-top: 130px;
+margin-top: 170px;
 margin-left: 20px;
 width: 200px;
 height: 100px;
@@ -104,12 +104,19 @@ padding-right: 50px;
 margin-left: 110px;
 }
 
+#health-bar {
+margin-top: 40px;
+margin-left: 20px;
+width: 200px;
+height: 100px;
+}
+
 #restartBtn {
 background-color: #FEE202;
 border: 4px solid black;
 width: 200px;
 height: 100px;
-margin-top: 170px;
+margin-top: 130px;
 margin-left: 25px;
 font-size: 40px;
 font-weight: bolder;
@@ -120,7 +127,7 @@ box-sizing: border-box;
 }
 
 #muteBtn {
-margin-top: 170px;
+margin-top: 130px;
 margin-left: 100px;
 }
 

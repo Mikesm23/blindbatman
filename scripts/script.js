@@ -10,32 +10,25 @@ canvas.style.border = "4px solid #FEE202";
 
 // Audio
 let gameMusic = new Audio("/audio/batman.mp3");
-gameMusic.volume = 0.1;
+gameMusic.volume = 0.1; // Played in Gameplay Page
 let hitSound = new Audio("/audio/hit.m4a");
-hitSound.volume = 0.1;
+hitSound.volume = 0.1; // Played when Batman is hit
 let sighSound = new Audio("/audio/sigh.m4a");
-sighSound.volume = 0.1;
+sighSound.volume = 0.1; // Played when Batman improves health
+let catchSound = new Audio("/audio/catch.m4a");
+catchSound.volume = 0.1; // Played when Batman catches symbol
 let defeatSound = new Audio("/audio/game_defeat.m4a");
-defeatSound.volume = 0.1;
+defeatSound.volume = 0.1; // Played when Batman loses
 let gameOverMusic = new Audio("/audio/gameover_sound.m4a");
-gameOverMusic.volume = 0.1;
+gameOverMusic.volume = 0.1; // Played when Gameover page loads
 let winSound = new Audio("/audio/winsound.m4a");
-winSound.volume = 0.1;
-
-
+winSound.volume = 0.1; // Played when Winner page loads
 
 // Batman Related Variables
-let batmanRightW = 100;
-let batmanRightH = 104;
-let batmanRightX = (canvas.width - batmanRightW) / 2;
-let batmanRightY = canvas.height - batmanRightH;
-
-
-/*let batmanLeftX = 100; 
-let batmanLeftY = 104; 
-let batmanLeftW = 100;
-let batmanLeftH = 104;*/
-
+let batmanW = 100;
+let batmanH = 104;
+let batmanX = (canvas.width - batmanW) / 2;
+let batmanY = canvas.height - batmanH;
 let batmanSpeed = 10;
 
 // Joker Images Variables
@@ -60,11 +53,11 @@ let batSignalH = 40;
 let speedBatSignal = 2;
 
 // Bat Images Variables
-let batX = 800;
-let batY = 200;
-let batW = 23;
-let batH = 19;
-let speedBat = 6;
+let lemonX = 800;
+let lemonY = 200;
+let lemonW = 46;
+let lemonH = 38;
+let speedLemon = 1;
 
 let isBatmanGoingLeft = false;
 let isBatmanGoingRight = false;
@@ -112,12 +105,12 @@ let penguin = new Image();
 penguin.src = "/images/penguin.png";
 let batSignal = new Image();
 batSignal.src = "/images/batsignal.png";
-let bat = new Image();
-bat.src = "/images/bat.png";
+let lemon = new Image();
+lemon.src = "/images/lemon.png";
 
 let animationFrameId;
 
-// Generate rendom positions for the elements falling
+// Generate random positions for the elements falling
 let randomXPlacement = () => {
     let biggestX = canvas.width - 20; // what is this?
     let smallestX = 50;
@@ -182,10 +175,12 @@ let jokerArray = [
     { img: batSignal, x: randomXPlacement(), y: -1800, width: batSignalW, height: batSignalH },*/
   ];
 
-  /*let batArray = [
-    { img: bat, x: 600, y: -900 },
-    { img: bat, x: 600, y: -1800, width: batW, height: batH },
-  ];*/
+  let lemonArray = [
+    { img: lemon, x: randomXPlacement(), y: -125, width: lemonW, height: lemonH},
+    { img: lemon, x: randomXPlacement(), y: -525, width: lemonW, height: lemonH},
+    { img: lemon, x: randomXPlacement(), y: -1025, width: lemonW, height: lemonH},
+    { img: lemon, x: randomXPlacement(), y: -1525, width: lemonW, height: lemonH},
+  ];
 
 
 
@@ -214,21 +209,21 @@ function startGame() {
 
 function drawImages() {
     ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
-    ctx.drawImage(batmanRight, batmanRightX, batmanRightY, batmanRightW, batmanRightH);
+    ctx.drawImage(batmanRight, batmanX, batmanY, batmanW, batmanH);
 }
 
 function moveBatman() {
     if (isBatmanGoingLeft) {
-        if (batmanRightX > 0) {
+        if (batmanX > 0) {
             batmanRight.src = "/images/bb_goleft.png";
             console.log('isBatmanGoingLeft');
-            batmanRightX -= batmanSpeed;
+            batmanX -= batmanSpeed;
         }
       } else if (isBatmanGoingRight) {
-        if (batmanRightX < canvas.width - batmanRightW) {
+        if (batmanX < canvas.width - batmanW) {
             batmanRight.src = "/images/bb_goright.png";
             console.log('isBatmanGoingRight');
-            batmanRightX += batmanSpeed;
+            batmanX += batmanSpeed;
         }
       }
 };
@@ -259,13 +254,13 @@ function moveElements () {
         }
     }
 
-   /* for (let i = 0; i < batArray.length; i++) {
-        ctx.drawImage(batArray[i].img, batArray[i].x, batArray[i].y, batArray[i].width, batArray[i].height);
-        batArray[i].y += speedBat;
-        if (batArray[i].y > canvas.height) {
-            batArray[i].y = -1900;
+   for (let i = 0; i < lemonArray.length; i++) {
+        ctx.drawImage(lemonArray[i].img, lemonArray[i].x, lemonArray[i].y, lemonArray[i].width, lemonArray[i].height);
+        lemonArray[i].y += speedLemon;
+        if (lemonArray[i].y > canvas.height) {
+          lemonArray[i].y = -100;
         }
-    } */
+    }
 
 };
 
@@ -286,13 +281,13 @@ for (let i = 0; i < jokerArray.length; i++) {
     }
     if (
         // checks if the bottom of the traffic car is touching the top of the player car
-        jokerArray[i].y + jokerArray[i].height >= batmanRightY + 10 && //why + 10?
+        jokerArray[i].y + jokerArray[i].height >= batmanY + 10 && //why + 10?
         //checks if the right side of the player car is more to the right than the traffic car
-        batmanRightX + 120 > jokerArray[i].x &&
+        batmanX + 120 > jokerArray[i].x &&
         // checks if the left side of the player car is touching the left side of the traffic car
-        batmanRightX < jokerArray[i].x + jokerArray[i].width &&
+        batmanX < jokerArray[i].x + jokerArray[i].width &&
         //checks if the bottom of the player car is touching the top of the traffic car
-        batmanRightY + batmanRightH - 10 > jokerArray[i].y
+        batmanY + batmanH - 10 > jokerArray[i].y
       ) {
         health = health - 1;
       }
@@ -317,13 +312,13 @@ for (let i = 0; i < batSignalArray.length; i++) {
     }
     if (
         // checks if the bottom of the traffic car is touching the top of the player car
-        batSignalArray[i].y + batSignalArray[i].height >= batmanRightY + 10 &&
+        batSignalArray[i].y + batSignalArray[i].height >= batmanY + 10 &&
         //checks if the right side of the player car is more to the right than the traffic car
-        batmanRightX + 120 > batSignalArray[i].x &&
+        batmanX + 120 > batSignalArray[i].x &&
         // checks if the left side of the player car is touching the left side of the traffic car
-        batmanRightX < batSignalArray[i].x + batSignalArray[i].width &&
+        batmanX < batSignalArray[i].x + batSignalArray[i].width &&
         //checks if the bottom of the player car is touching the top of the traffic car
-        batmanRightY + batmanRightH - 10 > batSignalArray[i].y
+        batmanY + batmanH - 10 > batSignalArray[i].y
       ) {
         score += 1;
         scoreNumber.innerHTML = score;
