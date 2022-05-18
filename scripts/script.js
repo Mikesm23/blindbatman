@@ -240,20 +240,20 @@ function moveElements () {
             jokerArray[i].y = -100;
         }
         if (
-          // checks if the bottom of the traffic car is touching the top of the player car
+          //checks if the bottom of joker touches the top of batman
           jokerArray[i].y + jokerArray[i].height >= batmanY &&
-          //checks if the right side of the player car is more to the right than the traffic car
+          //checks if the right side of joker is more to the right than batman
           batmanX + batmanW > jokerArray[i].x &&
-          // checks if the left side of the player car is touching the left side of the traffic car
+          //checks if the left side of joker is touching the left side of batman
           batmanX < jokerArray[i].x + jokerArray[i].width &&
-          //checks if the bottom of the player car is touching the top of the traffic car
+          //checks if the bottom of joker is touching the top of batman
           batmanY + batmanH > jokerArray[i].y
         ) {health = health - 2;
-          //scoreNumber.innerHTML = health-bar;};
+          hitSound.play()
+          //scoreNumber.innerHTML = health-bar;
         } 
-
-        // Fix Image of Health bar (starts at five, must start full)
-        // Batman dies when hit by Joker. Should decrease 2 bars in Health bar
+        // Can I have a function for the Score Board? Like I write this if statement and apply it to every collision. Same with score? It reduces the redundency of code.
+        // Batman dies when hit by Joker. Should decrease only 2 bars in Health bar
         if (health === 6) { 
           healthBarImg.src = "/images/healthbar_full.png";
         } else if (health === 5) {
@@ -268,6 +268,7 @@ function moveElements () {
           healthBarImg.src = "/images/healthbar_one.png";
         } else {
           healthBarImg.src = "/images/healthbar_empty.png";
+          defeatSound.play()
           cancelanimationFrame(animationFrameId)
           gameOver()
         }
@@ -279,6 +280,34 @@ function moveElements () {
         if (penguinArray[i].y > canvas.height) {
             penguinArray[i].y = -100;
         }
+        if (
+          penguinArray[i].y + penguinArray[i].height >= batmanY &&
+          batmanX + batmanW > penguinArray[i].x &&
+          batmanX < penguinArray[i].x + penguinArray[i].width &&
+          batmanY + batmanH > penguinArray[i].y
+        ) {health = health - 1;
+          hitSound.play()
+        //scoreNumber.innerHTML = health-bar;
+        } 
+        // Penguin should decrease 1 bar in Health bar
+        if (health === 6) { 
+          healthBarImg.src = "/images/healthbar_full.png";
+        } else if (health === 5) {
+          healthBarImg.src = "/images/healthbar_five.png";
+        } else if (health === 4) {
+          healthBarImg.src = "/images/healthbar_four.png";
+        } else if (health === 3) {
+          healthBarImg.src = "/images/healthbar_three.png";
+        } else if (health === 2) {
+          healthBarImg.src = "/images/healthbar_two.png";
+        } else if (health === 1) {
+          healthBarImg.src = "/images/healthbar_one.png";
+        } else {
+          healthBarImg.src = "/images/healthbar_empty.png";
+          defeatSound.play()
+          cancelanimationFrame(animationFrameId)
+          gameOver()
+        }
     }
 
     for (let i = 0; i < batSignalArray.length; i++) {
@@ -286,6 +315,33 @@ function moveElements () {
         batSignalArray[i].y += speedBatSignal;
         if (batSignalArray[i].y > canvas.height) {
             batSignalArray[i].y = -100;
+        }
+        if (
+          batSignalArray[i].y + batSignalArray[i].height >= batmanY &&
+          batmanX + batmanW > batSignalArray[i].x &&
+          batmanX < batSignalArray[i].x + batSignalArray[i].width &&
+          batmanY + batmanH > batSignalArray[i].y
+        ) {catchSound.play()
+          scoreNumber.innerHTML = health-bar;
+        } 
+        // Penguin should decrease 1 bar in Health bar
+        if (health === 6) { 
+          healthBarImg.src = "/images/healthbar_full.png";
+        } else if (health === 5) {
+          healthBarImg.src = "/images/healthbar_five.png";
+        } else if (health === 4) {
+          healthBarImg.src = "/images/healthbar_four.png";
+        } else if (health === 3) {
+          healthBarImg.src = "/images/healthbar_three.png";
+        } else if (health === 2) {
+          healthBarImg.src = "/images/healthbar_two.png";
+        } else if (health === 1) {
+          healthBarImg.src = "/images/healthbar_one.png";
+        } else {
+          healthBarImg.src = "/images/healthbar_empty.png";
+          defeatSound.play()
+          cancelanimationFrame(animationFrameId)
+          gameOver()
         }
     }
 
