@@ -35,6 +35,11 @@ img {
     margin-bottom: 40px;
 }
 
+#player-name {
+    font-size: x-large;
+    color:#FEE202; 
+}
+
 /* Arrow Buttons */
 .arrows {
     display: flex;
@@ -164,7 +169,7 @@ img {
 }
 
 #go_uktext {
-    font-size: medium;
+    font-size: x-large;
     font-weight: bold;
     text-align: center;
     align-items: center;
@@ -218,7 +223,7 @@ img {
 }
 
 #yw_uktext {
-    font-size: medium;
+    font-size: x-large;
     font-weight: bold;
     text-align: center;
     align-items: center;

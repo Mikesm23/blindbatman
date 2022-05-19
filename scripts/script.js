@@ -62,6 +62,8 @@ let soundOnBtn = document.querySelector('.sound');
 let soundOffBtn = document.querySelector('.sound');
 
 let gameOverText = document.querySelector("#go_uktext");
+let winnerText = document.querySelector("#yw_uktext");
+let playerInsert = document.querySelector("#player-name");
 
 // Batman Related Variables
 let batmanW = 100;
@@ -235,7 +237,7 @@ function moveElements () {
         }
         // Health Bar Behaviour
         if (health >= 6) {
-          health = health;
+          healthBarImg.src = "/images/healthbar_full.png";
         } else if (health === 6) { 
           healthBarImg.src = "/images/healthbar_full.png";
         } else if (health === 5) {
@@ -251,8 +253,8 @@ function moveElements () {
         } else {
           healthBarImg.src = "/images/healthbar_empty.png";
           gameIsOver = true;
-          gameOver()
-          // setTimeout(() => gameOver(), 2000)
+          defeatSound.play()
+          setTimeout(() => gameOver(), 2500)
         }
     }
     // Penguin Movements
@@ -287,7 +289,7 @@ function moveElements () {
         batmanX < lemonArray[i].x + lemonArray[i].width &&
         batmanY + batmanH > lemonArray[i].y
       ) {lemonArray[i].y = -2000
-        health = health + 1;
+        health = health + 1; // When we have 6 lemons we shouldn't have more lives. The max lives we should have is 6.
         sighSound.play()
       } 
   
@@ -317,34 +319,47 @@ function moveElements () {
         if (score === 15) { 
           // winImage.src = "/images/yeah_win.png";
           youWon = true;
-          youWin()
+          yeahSound.play()
+          setTimeout(() => youWin(), 2500)
         }
     }
 };
 
+// Different scores texts.
 function changeGameoverText() {
-  // Trying to divide scores.
+  
    if (score <= 5) {
-       gameOverText.innerHTML = "Wow! You're really bad at this... Sure you want this to be on record?";
+    gameOverText.innerHTML = `Wow ${player}! You're really bad at this... Sure you want this to be on record?`;
    } else if (score > 5 && score <= 10) {
-      gameOverText.innerHTML = "Not bad! You tried it right? That's what losers say. Go back and get better!";
+      gameOverText.innerHTML = `Not bad ${player}! You tried it right? That's what losers say. Go back and get better!`;
    } else if (score > 10 && score < 14) {
-      gameOverText.innerHTML = "Almost there! But anyway...Batman is still blind so not much of a help here";
-   } else {
-    youWon = true;
-    youWin()
+      gameOverText.innerHTML = `Almost there ${player}! But anyway...Batman is still blind so not much of a help here`;
+   } else if (score === 15) {
+      //playerInsert.innerHTML = player
+      winnerText.innerHTML = `GREAT JOB ${player}! Batman is a lucky Super Hero to have you by his side. Impressive.
+      Now he is seeing again!`; // I don't understand why this doesn't work!
+      youWon = true;
+      youWin()
    }
 }
 
-/* function getPlayerName() {
-    player = prompt("Hello! Who is going to help Batman today?");
-    if (player != null) {
-        greet()
+function getPlayerName() {
+    player = prompt("Hello! Who is going to help Batman today?");  
+    gamePlayDiv.style.display = "none";
+    gameOverPage.style.display = "none";
+    youWinPage.style.display = "none";
+    if (player == "") {
+    player = prompt("Please repeat");
+    playerInsert.innerHTML = player;
+    } else if (player != null) {
+      playerInsert.innerHTML = player;
     } else {
-        player = prompt("Please repeat");
+      playerInsert.innerHTML = "player";
+      // This one is also a mistery. It worked at somepoint...
     }
   };
 
+/*
 function greet() {
     alert("Hello " + player + "! Feeling strong? Let's go!";);
 };
@@ -363,36 +378,31 @@ window.onload = greet;
 */
 
 
-// What happens when Player lose
+// What happens when Player loses
 function gameOver() {
-    defeatSound.play()
     gameMusic.pause()
     introMusic.pause()
+    gameOverMusic.play()
     gameOverPage.style.display = "block";
     canvas.style.display = "none";
     splashPage.style.display = "none";
     gamePlayDiv.style.display = "none";
     youWinPage.style.display = "none";
     changeGameoverText()
-    setTimeout( () => {
-    gameOverMusic.play()
-    }, 2000)
 }
 
 // What happens when Player wins
 function youWin() {
-    yeahSound.play()
     gameMusic.pause()
     introMusic.pause()
+    winSound.play()
     cancelAnimationFrame(animationFrameId)
     youWinPage.style.display = "block";
     gameOverPage.style.display = "none";
     canvas.style.display = "none";
     splashPage.style.display = "none";
-    gamePlayDiv.style.display = "none"; 
-    setTimeout( () => {
-      winSound.play()
-      }, 2000)
+    gamePlayDiv.style.display = "none";
+    changeGameoverText() 
 }
 
 /*
@@ -407,30 +417,29 @@ function muteAudio() {
 }
 
 function unmuteAudio() {
-    introMusic.play = true
-    gameMusic.play = true
-    hitSound.play = true
-    sighSound.play = true
-    defeatSound.play = true
-    gameOverMusic.play = true
-    winSound.play = true
+    introMusic.play()
+    gameMusic.play()
+    hitSound.play()
+    sighSound.play()
+    defeatSound.play()
+    gameOverMusic.play()
+    winSound.play()
 }
 */
 
 // Navigation (what happens when page loads)
-window.addEventListener("load", () => {
+window.addEventListener("load", () => {  
     introMusic.play()
     gamePlayDiv.style.display = "none";
     gameOverPage.style.display = "none";
     youWinPage.style.display = "none";
+    getPlayerName()
     startBtn.addEventListener("click", () => {
     startGame();
         console.log("start button pushed!");
   });
     restartBtn.addEventListener("click", () => {
       location.reload()
-      //gameIsOver = false;
-      //startGame()
     console.log("restart button pushed!");
   });
     tryAgainBtn.addEventListener("click", () => {
