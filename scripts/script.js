@@ -39,7 +39,7 @@ catchSound.volume = 1,5; // Played when Batman catches symbol
 let defeatSound = new Audio("/audio/game_defeat.m4a");
 defeatSound.volume = 1; // Played when player loses
 let gameOverMusic = new Audio("/audio/gameover_sound.m4a");
-gameOverMusic.volume = 0.1; // Played when Gameover page loads
+gameOverMusic.volume = 0.5; // Played when Gameover page loads
 let yeahSound = new Audio("/audio/yeah.m4a");
 yeahSound.volume = 1; // Played when player wins
 let winSound = new Audio("/audio/winsound.m4a");
@@ -227,8 +227,9 @@ function healthBar() {
   } else {
     healthBarImg.src = "/images/healthbar_empty.png";
     defeatSound.play()
+    gameMusic.pause()
     cancelAnimationFrame(animationFrameId)
-    setTimeout(gameOver(), 5000)
+    // setTimeout(gameOver(), 5000)
   }
 }
 
@@ -287,8 +288,9 @@ function moveElements () {
         } else {
           healthBarImg.src = "/images/healthbar_empty.png";
           defeatSound.play()
-          cancelAnimationFrame(animationFrameId)
-          setTimeout(gameOver(), 5000)
+          gameOver()
+          // cancelAnimationFrame(animationFrameId)
+          // setTimeout(() => gameOver(), 2000)
         }
     }
     // Penguin Movements
@@ -324,8 +326,9 @@ function moveElements () {
         } else {
           healthBarImg.src = "/images/healthbar_empty.png";
           defeatSound.play()
-          cancelAnimationFrame(animationFrameId)
-          setTimeout(gameOver(), 5000)
+          gameOver()
+          // cancelAnimationFrame(animationFrameId)
+          // setTimeout(() => gameOver(), 2000)
         }
     }
     // Lemon Movements Collision
@@ -361,8 +364,9 @@ function moveElements () {
       } else {
         healthBarImg.src = "/images/healthbar_empty.png";
         defeatSound.play()
-        cancelAnimationFrame(animationFrameId)
-        setTimeout(gameOver(), 5000)
+        gameOver()
+        //cancelAnimationFrame(animationFrameId)
+        // setTimeout(() => gameOver(), 2000)
       }
   }
     // Bat Signal Movements Points & Collision
@@ -391,6 +395,7 @@ function moveElements () {
           winImage.src = "/images/yeah_win.png";
           // If time add sprite image of fireworks
           yeahSound.play()
+          gameMusic.pause()
           cancelAnimationFrame(animationFrameId)
           youWin()
         }
@@ -437,15 +442,16 @@ function insertScore() {
 */
 // What happens when Player lose
 function gameOver() {
+    cancelAnimationFrame(animationFrameId)
+    defeatSound.pause()
+    gameMusic.pause()
+    gameOverMusic.play()
     gameOverPage.style.display = "block";
     canvas.style.display = "none";
     splashPage.style.display = "none";
     gamePlayDiv.style.display = "none";
     youWinPage.style.display = "none";
-    gameMusic.pause()
-    defeatSound.pause()
-    gameOverMusic.play()
-    cancelAnimationFrame(animationFrameId)
+    
 }
 
 // What happens when Player wins
@@ -498,7 +504,7 @@ window.addEventListener("load", () => {
     startGame();
         console.log("start button pushed!");
   });
-    /*restartBtn.addEventListener("click", () => {
+    restartBtn.addEventListener("click", () => {
     startGame()
     console.log("restart button pushed!");
   });
@@ -509,7 +515,7 @@ window.addEventListener("load", () => {
     playAgainBtn.addEventListener("click", () => {
     startGame()
     console.log("play again button pushed!");
-  });*/
+  });
 
  /* window.onload = function() {
     document.getElementById("intro-song").play();
