@@ -108,26 +108,32 @@ img {
     height: auto;
     }
 
+#gameplay-elements {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 50px;
+    margin-left: 60px;
+    margin-right: 60px;
+    
+
+}
+
 #current-score {
-    margin-top: 170px;
-    margin-left: 20px;
     width: 200px;
     height: 100px;
     }
 
 #score-number {
     color: #FEE202;
-    font-size: 50px;
+    font-size: 100px;
     stroke: black;
     stroke-width: 4px;
     font-weight: bold;
-    padding-right: 50px;
-    margin-left: 110px;
+    font-family: batmanforever, sans-serif;
     }
     
 #health-bar {
-    margin-top: 40px;
-    margin-left: 20px;
     width: 200px;
     height: 100px;
     }
@@ -137,16 +143,10 @@ img {
     border: 4px solid black;
     width: 200px;
     height: 100px;
-    margin-top: 80px;
-    margin-bottom: 20px;
     font-size: xx-large;
     font-weight: bolder;
     text-transform: uppercase;
     font-family: batmanforever, sans-serif;
-    /*position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);*/
     }
     
 #restartBtn:hover {
