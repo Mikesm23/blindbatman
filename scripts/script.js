@@ -61,6 +61,8 @@ let healthBarImg = document.querySelector("#health-bar");
 let soundOnBtn = document.querySelector('.sound');
 let soundOffBtn = document.querySelector('.sound');
 
+let gameOverText = document.querySelector("#go_uktext");
+
 // Batman Related Variables
 let batmanW = 100;
 let batmanH = 104;
@@ -135,12 +137,6 @@ let jokerArray = [
     { img: joker, x: randomXPlacement(), y: -1150, width: jokerW, height: jokerH},
     { img: joker, x: randomXPlacement(), y: -1500, width: jokerW, height: jokerH},
     { img: joker, x: randomXPlacement(), y: -1850, width: jokerW, height: jokerH},
-    /*{ img: joker, x: randomXPlacement(), y: -675, width: jokerW, height: jokerH},
-    { img: joker, x: randomXPlacement(), y: -775, width: jokerW, height: jokerH},
-    { img: joker, x: randomXPlacement(), y: -875, width: jokerW, height: jokerH},
-    { img: joker, x: randomXPlacement(), y: -975, width: jokerW, height: jokerH},
-    { img: joker, x: randomXPlacement(), y: -1075, width: jokerW, height: jokerH},
-    { img: joker, x: randomXPlacement(), y: -1175, width: jokerW, height: jokerH},*/
   ];
 
   let penguinArray = [
@@ -154,10 +150,6 @@ let jokerArray = [
     { img: penguin, x: randomXPlacement(), y: -1900, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -2100, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -2300, width: penguinW, height: penguinH},
-    /*{ img: penguin, x: randomXPlacement(), y: -1050, width: penguinW, height: penguinH},
-    { img: penguin, x: randomXPlacement(), y: -1150, width: penguinW, height: penguinH},
-    { img: penguin, x: randomXPlacement(), y: -1250, width: penguinW, height: penguinH},
-    { img: penguin, x: randomXPlacement(), y: -1350, width: penguinW, height: penguinH},*/
   ];
 
   let batSignalArray = [
@@ -166,25 +158,10 @@ let jokerArray = [
     { img: batSignal, x: randomXPlacement(), y: -1900, width: batSignalW, height: batSignalH  },
     { img: batSignal, x: randomXPlacement(), y: -2800, width: batSignalW, height: batSignalH },
     { img: batSignal, x: randomXPlacement(), y: -3700, width: batSignalW, height: batSignalH  },
-    /*{ img: batSignal, x: randomXPlacement(), y: -600, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: randomXPlacement(), y: -700, width: batSignalW, height: batSignalH  },
-    { img: batSignal, x: randomXPlacement(), y: -800, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: randomXPlacement(), y: -900, width: batSignalW, height: batSignalH  },
-    { img: batSignal, x: randomXPlacement(), y: -1000, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: randomXPlacement(), y: -1100, width: batSignalW, height: batSignalH  },
-    { img: batSignal, x: randomXPlacement(), y: -1200, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: randomXPlacement(), y: -1300, width: batSignalW, height: batSignalH  },
-    { img: batSignal, x: randomXPlacement(), y: -1400, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: randomXPlacement(), y: -1500, width: batSignalW, height: batSignalH  },
-    { img: batSignal, x: randomXPlacement(), y: -1600, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: randomXPlacement(), y: -1700, width: batSignalW, height: batSignalH  },
-    { img: batSignal, x: randomXPlacement(), y: -1800, width: batSignalW, height: batSignalH },*/
   ];
 
   let lemonArray = [
     { img: lemon, x: randomXPlacement(), y: -125, width: lemonW, height: lemonH},
-   // { img: lemon, x: randomXPlacement(), y: -525, width: lemonW, height: lemonH},
-    //{ img: lemon, x: randomXPlacement(), y: -1025, width: lemonW, height: lemonH},
     { img: lemon, x: randomXPlacement(), y: -1525, width: lemonW, height: lemonH},
   ];
 
@@ -216,28 +193,6 @@ function drawImages() {
     ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
     ctx.drawImage(batmanRight, batmanX, batmanY, batmanW, batmanH);
 }
-
-/*function healthBar() {
-  if (health === 6) { 
-    healthBarImg.src = "/images/healthbar_full.png";
-  } else if (health === 5) {
-    healthBarImg.src = "/images/healthbar_five.png";
-  } else if (health === 4) {
-    healthBarImg.src = "/images/healthbar_four.png";
-  } else if (health === 3) {
-    healthBarImg.src = "/images/healthbar_three.png";
-  } else if (health === 2) {
-    healthBarImg.src = "/images/healthbar_two.png";
-  } else if (health === 1) {
-    healthBarImg.src = "/images/healthbar_one.png";
-  } else {
-    healthBarImg.src = "/images/healthbar_empty.png";
-    gameOver()
-    cancelAnimationFrame(animationFrameId)
-    // setTimeout(gameOver(), 5000)
-  }
-}
-*/
 
 function moveBatman() {
     if (isBatmanGoingLeft) {
@@ -278,8 +233,10 @@ function moveElements () {
           health = health -2;
           hitSound.play()
         }
-        // Joker Damages
-        if (health === 6) { 
+        // Health Bar Behaviour
+        if (health >= 6) {
+          health = health;
+        } else if (health === 6) { 
           healthBarImg.src = "/images/healthbar_full.png";
         } else if (health === 5) {
           healthBarImg.src = "/images/healthbar_five.png";
@@ -315,26 +272,6 @@ function moveElements () {
           health = health -1;
           hitSound.play()
         }
-        // Penguin Damages
-        /*
-        if (health === 6) { 
-          healthBarImg.src = "/images/healthbar_full.png";
-        } else if (health === 5) {
-          healthBarImg.src = "/images/healthbar_five.png";
-        } else if (health === 4) {
-          healthBarImg.src = "/images/healthbar_four.png";
-        } else if (health === 3) {
-          healthBarImg.src = "/images/healthbar_three.png";
-        } else if (health === 2) {
-          healthBarImg.src = "/images/healthbar_two.png";
-        } else if (health === 1) {
-          healthBarImg.src = "/images/healthbar_one.png";
-        } else {
-          healthBarImg.src = "/images/healthbar_empty.png";
-          gameOver()
-          // setTimeout(() => gameOver(), 2000)
-        }
-        */
     }
     // Lemon Movements Collision
     for (let i = 0; i < lemonArray.length; i++) {
@@ -352,28 +289,8 @@ function moveElements () {
       ) {lemonArray[i].y = -2000
         health = health + 1;
         sighSound.play()
-      }
-      // Lemon Vitamins
-      /*
-      if (health === 6) { 
-        healthBarImg.src = "/images/healthbar_full.png";
-      } else if (health === 5) {
-        healthBarImg.src = "/images/healthbar_five.png";
-      } else if (health === 4) {
-        healthBarImg.src = "/images/healthbar_four.png";
-      } else if (health === 3) {
-        healthBarImg.src = "/images/healthbar_three.png";
-      } else if (health === 2) {
-        healthBarImg.src = "/images/healthbar_two.png";
-      } else if (health === 1) {
-        healthBarImg.src = "/images/healthbar_one.png";
-      } else {
-        healthBarImg.src = "/images/healthbar_empty.png";
-        gameOver()
-        cancelAnimationFrame(animationFrameId)
-        // setTimeout(() => gameOver(), 2000)
-      }
-      */
+      } 
+  
   }
     // Bat Signal Movements Points & Collision
     for (let i = 0; i < batSignalArray.length; i++) {
@@ -397,13 +314,27 @@ function moveElements () {
           scoreNumber.innerHTML = score
         }         
 
-        if (score === 1) { 
+        if (score === 15) { 
           // winImage.src = "/images/yeah_win.png";
           youWon = true;
           youWin()
         }
     }
 };
+
+function changeGameoverText() {
+  // Trying to divide scores.
+   if (score <= 5) {
+       gameOverText.innerHTML = "Wow! You're really bad at this... Sure you want this to be on record?";
+   } else if (score > 5 && score <= 10) {
+      gameOverText.innerHTML = "Not bad! You tried it right? That's what losers say. Go back and get better!";
+   } else if (score > 10 && score < 14) {
+      gameOverText.innerHTML = "Almost there! But anyway...Batman is still blind so not much of a help here";
+   } else {
+    youWon = true;
+    youWin()
+   }
+}
 
 /* function getPlayerName() {
     player = prompt("Hello! Who is going to help Batman today?");
@@ -418,19 +349,6 @@ function greet() {
     alert("Hello " + player + "! Feeling strong? Let's go!";);
 };
 window.onload = greet;
-
-
-function insertScore() {
-    // Trying to divide scores.
-     if (score <= 5) {
-         prompt(`Wow ${player}! You're really bad at this... Sure you want this to be on record?`);
-     } else if (score > 5 && score <= 10) {
-        prompt(`Not bad ${player}! You tried it right? That's what losers say. Go back and get better!`);
-     } else if (score > 10 && score < 14) {
-        prompt(`Almost there ${player}! But anyway...Batman is still blind so not much of a help here`);
-     } else {
-        prompt(`YEAH ${player}! You did it! Batman regained his X-Ray vision again!`);
-     }
      
     // Attempt to insert players score to the HighScores List
      let currentHighScore = {name: player, score: score};
@@ -443,19 +361,19 @@ function insertScore() {
 
 };
 */
+
+
 // What happens when Player lose
-
-
 function gameOver() {
     defeatSound.play()
     gameMusic.pause()
     introMusic.pause()
-    
     gameOverPage.style.display = "block";
     canvas.style.display = "none";
     splashPage.style.display = "none";
     gamePlayDiv.style.display = "none";
     youWinPage.style.display = "none";
+    changeGameoverText()
     setTimeout( () => {
     gameOverMusic.play()
     }, 2000)
@@ -476,14 +394,6 @@ function youWin() {
       winSound.play()
       }, 2000)
 }
-
-/*function tryAgain() {
-    startGame()
-};
-
-function playAgain() {
-    startGame()
-};*/
 
 /*
 function muteAudio() {
@@ -506,6 +416,7 @@ function unmuteAudio() {
     winSound.play = true
 }
 */
+
 // Navigation (what happens when page loads)
 window.addEventListener("load", () => {
     introMusic.play()
@@ -531,6 +442,7 @@ window.addEventListener("load", () => {
     console.log("play again button pushed!");
   });
 });
+
  /*window.onload = function() {
     document.getElementById("intro-song").play();
   }*/
@@ -545,6 +457,7 @@ window.addEventListener("load", () => {
     }      
   });
 */
+
 // Commands Arrows
 document.addEventListener("keydown", event => {
     if (event.code === "ArrowLeft") {
