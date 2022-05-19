@@ -41,7 +41,7 @@ defeatSound.volume = 1; // Played when player loses
 let gameOverMusic = new Audio("/audio/gameover_sound.m4a");
 gameOverMusic.volume = 0.5; // Played when Gameover page loads
 let yeahSound = new Audio("/audio/yeah.m4a");
-yeahSound.volume = 1; // Played when player wins
+yeahSound.volume = 0.7; // Played when player wins
 let winSound = new Audio("/audio/winsound.m4a");
 winSound.volume = 0.5; // Played when Winner page loads
 
@@ -145,7 +145,6 @@ let jokerArray = [
 
   let penguinArray = [
     { img: penguin, x: randomXPlacement(), y: -100, width: penguinW, height: penguinH},
-    { img: penguin, x: randomXPlacement(), y: -500, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -700, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -900, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -1100, width: penguinW, height: penguinH},
@@ -154,6 +153,7 @@ let jokerArray = [
     { img: penguin, x: randomXPlacement(), y: -1700, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -1900, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -2100, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -2300, width: penguinW, height: penguinH},
     /*{ img: penguin, x: randomXPlacement(), y: -1050, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -1150, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -1250, width: penguinW, height: penguinH},
@@ -191,19 +191,25 @@ let jokerArray = [
 let animationFrameId;
 
 function startGame() {
-    // getPlayerName()
     canvas.style.display = "block";
     gamePlayDiv.style.display = "block";
     splashPage.style.display = "none";
     gameOverPage.style.display = "none";
     youWinPage.style.display = "none";
+    introMusic.pause()
+    gameMusic.play()
     drawImages()
     moveBatman()
     moveElements()
-    // healthBar()
-    gameMusic.play()
- 
-    animationFrameId = requestAnimationFrame(startGame);
+ if (gameIsOver) {
+    cancelAnimationFrame(animationFrameId)
+    gameMusic.pause() 
+ } else if (youWon) {
+    cancelAnimationFrame(animationFrameId)
+    gameMusic.pause() 
+ } else {
+  animationFrameId = requestAnimationFrame(startGame);
+ }
 };
 
 function drawImages() {
@@ -211,8 +217,7 @@ function drawImages() {
     ctx.drawImage(batmanRight, batmanX, batmanY, batmanW, batmanH);
 }
 
-/*
-function healthBar() {
+/*function healthBar() {
   if (health === 6) { 
     healthBarImg.src = "/images/healthbar_full.png";
   } else if (health === 5) {
@@ -274,7 +279,6 @@ function moveElements () {
           hitSound.play()
         }
         // Joker Damages
-        /*
         if (health === 6) { 
           healthBarImg.src = "/images/healthbar_full.png";
         } else if (health === 5) {
@@ -289,11 +293,10 @@ function moveElements () {
           healthBarImg.src = "/images/healthbar_one.png";
         } else {
           healthBarImg.src = "/images/healthbar_empty.png";
-          defeatSound.play()
+          gameIsOver = true;
           gameOver()
-          cancelAnimationFrame(animationFrameId)
           // setTimeout(() => gameOver(), 2000)
-        }*/
+        }
     }
     // Penguin Movements
     for (let i = 0; i < penguinArray.length; i++) {
@@ -328,9 +331,7 @@ function moveElements () {
           healthBarImg.src = "/images/healthbar_one.png";
         } else {
           healthBarImg.src = "/images/healthbar_empty.png";
-          defeatSound.play()
           gameOver()
-          cancelAnimationFrame(animationFrameId)
           // setTimeout(() => gameOver(), 2000)
         }
         */
@@ -353,6 +354,7 @@ function moveElements () {
         sighSound.play()
       }
       // Lemon Vitamins
+      /*
       if (health === 6) { 
         healthBarImg.src = "/images/healthbar_full.png";
       } else if (health === 5) {
@@ -367,11 +369,11 @@ function moveElements () {
         healthBarImg.src = "/images/healthbar_one.png";
       } else {
         healthBarImg.src = "/images/healthbar_empty.png";
-        defeatSound.play()
         gameOver()
         cancelAnimationFrame(animationFrameId)
         // setTimeout(() => gameOver(), 2000)
       }
+      */
   }
     // Bat Signal Movements Points & Collision
     for (let i = 0; i < batSignalArray.length; i++) {
@@ -395,11 +397,9 @@ function moveElements () {
           scoreNumber.innerHTML = score
         }         
 
-        if (score === 1) {
-          cancelAnimationFrame(animationFrameId) 
-          winImage.src = "/images/yeah_win.png";
-          yeahSound.play()
-          gameMusic.pause()
+        if (score === 1) { 
+          // winImage.src = "/images/yeah_win.png";
+          youWon = true;
           youWin()
         }
     }
@@ -444,32 +444,37 @@ function insertScore() {
 };
 */
 // What happens when Player lose
+
+
 function gameOver() {
-    gameIsOver = true;
-    cancelAnimationFrame(animationFrameId)
-    defeatSound.pause()
+    defeatSound.play()
     gameMusic.pause()
-    gameOverMusic.play()
+    introMusic.pause()
+    
     gameOverPage.style.display = "block";
     canvas.style.display = "none";
     splashPage.style.display = "none";
     gamePlayDiv.style.display = "none";
     youWinPage.style.display = "none";
-    
+    setTimeout( () => {
+    gameOverMusic.play()
+    }, 2000)
 }
 
 // What happens when Player wins
 function youWin() {
-    youWon = true;
-    yeahSound.pause()
+    yeahSound.play()
     gameMusic.pause()
-    winSound.play()
+    introMusic.pause()
     cancelAnimationFrame(animationFrameId)
     youWinPage.style.display = "block";
     gameOverPage.style.display = "none";
     canvas.style.display = "none";
     splashPage.style.display = "none";
     gamePlayDiv.style.display = "none"; 
+    setTimeout( () => {
+      winSound.play()
+      }, 2000)
 }
 
 /*function tryAgain() {
@@ -480,14 +485,15 @@ function playAgain() {
     startGame()
 };*/
 
+/*
 function muteAudio() {
-    introMusic.pause = true
-    gameMusic.pause = true
-    hitSound.pause = true
-    sighSound.pause = true
-    defeatSound.pause = true
-    gameOverMusic.pause = true
-    winSound.pause = true   
+    introMusic.pause()
+    gameMusic.pause()
+    hitSound.pause()
+    sighSound.pause()
+    defeatSound.pause()
+    gameOverMusic.pause()
+    winSound.pause()   
 }
 
 function unmuteAudio() {
@@ -499,9 +505,10 @@ function unmuteAudio() {
     gameOverMusic.play = true
     winSound.play = true
 }
-
+*/
 // Navigation (what happens when page loads)
 window.addEventListener("load", () => {
+    introMusic.play()
     gamePlayDiv.style.display = "none";
     gameOverPage.style.display = "none";
     youWinPage.style.display = "none";
@@ -510,32 +517,34 @@ window.addEventListener("load", () => {
         console.log("start button pushed!");
   });
     restartBtn.addEventListener("click", () => {
-    startGame()
+      location.reload()
+      //gameIsOver = false;
+      //startGame()
     console.log("restart button pushed!");
   });
     tryAgainBtn.addEventListener("click", () => {
-    startGame()
+      location.reload()
     console.log("try again button pushed!");
   });
     playAgainBtn.addEventListener("click", () => {
-    startGame()
+      location.reload()
     console.log("play again button pushed!");
   });
 });
  /*window.onload = function() {
     document.getElementById("intro-song").play();
   }*/
-    
+   /* 
   switchAudio.addEventListener("click", () => {
-    if (muteAudio()) {
+    if (muted) {
         soundOnBtn.setAttribute("src", "/images/sound_on.png");
         console.log("mute audio button pushed!");
-    } else { // whats wrong here?!
+    } else {
         soundOffBtn.setAttribute("src", "/images/sound_off.png");
         console.log("unmute audio button pushed!");   
     }      
   });
-
+*/
 // Commands Arrows
 document.addEventListener("keydown", event => {
     if (event.code === "ArrowLeft") {
