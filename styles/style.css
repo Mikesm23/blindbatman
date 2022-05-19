@@ -21,7 +21,8 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: fit-content;
+    width: 60%;
+    max-width: 800px;
     height: auto;
 }
 
@@ -111,12 +112,8 @@ img {
 #gameplay-elements {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-around;
     margin-top: 50px;
-    margin-left: 60px;
-    margin-right: 60px;
-    
-
 }
 
 #current-score {

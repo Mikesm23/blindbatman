@@ -43,7 +43,7 @@ gameOverMusic.volume = 0.5; // Played when Gameover page loads
 let yeahSound = new Audio("/audio/yeah.m4a");
 yeahSound.volume = 1; // Played when player wins
 let winSound = new Audio("/audio/winsound.m4a");
-winSound.volume = 0.1; // Played when Winner page loads
+winSound.volume = 0.5; // Played when Winner page loads
 
 // Pages
 const splashPage = document.querySelector(".splashpage");
@@ -109,7 +109,7 @@ let highScoresTable = document.getElementById("high-scores-table");
 let gameIsOver = false;
 
 // YouWin Variable
-let youWin = false;
+let youWon = false;
 
 // Health Status Variable
 let health = 6;
@@ -211,6 +211,7 @@ function drawImages() {
     ctx.drawImage(batmanRight, batmanX, batmanY, batmanW, batmanH);
 }
 
+/*
 function healthBar() {
   if (health === 6) { 
     healthBarImg.src = "/images/healthbar_full.png";
@@ -226,12 +227,12 @@ function healthBar() {
     healthBarImg.src = "/images/healthbar_one.png";
   } else {
     healthBarImg.src = "/images/healthbar_empty.png";
-    defeatSound.play()
-    gameMusic.pause()
+    gameOver()
     cancelAnimationFrame(animationFrameId)
     // setTimeout(gameOver(), 5000)
   }
 }
+*/
 
 function moveBatman() {
     if (isBatmanGoingLeft) {
@@ -273,6 +274,7 @@ function moveElements () {
           hitSound.play()
         }
         // Joker Damages
+        /*
         if (health === 6) { 
           healthBarImg.src = "/images/healthbar_full.png";
         } else if (health === 5) {
@@ -289,9 +291,9 @@ function moveElements () {
           healthBarImg.src = "/images/healthbar_empty.png";
           defeatSound.play()
           gameOver()
-          // cancelAnimationFrame(animationFrameId)
+          cancelAnimationFrame(animationFrameId)
           // setTimeout(() => gameOver(), 2000)
-        }
+        }*/
     }
     // Penguin Movements
     for (let i = 0; i < penguinArray.length; i++) {
@@ -311,6 +313,7 @@ function moveElements () {
           hitSound.play()
         }
         // Penguin Damages
+        /*
         if (health === 6) { 
           healthBarImg.src = "/images/healthbar_full.png";
         } else if (health === 5) {
@@ -327,9 +330,10 @@ function moveElements () {
           healthBarImg.src = "/images/healthbar_empty.png";
           defeatSound.play()
           gameOver()
-          // cancelAnimationFrame(animationFrameId)
+          cancelAnimationFrame(animationFrameId)
           // setTimeout(() => gameOver(), 2000)
         }
+        */
     }
     // Lemon Movements Collision
     for (let i = 0; i < lemonArray.length; i++) {
@@ -365,7 +369,7 @@ function moveElements () {
         healthBarImg.src = "/images/healthbar_empty.png";
         defeatSound.play()
         gameOver()
-        //cancelAnimationFrame(animationFrameId)
+        cancelAnimationFrame(animationFrameId)
         // setTimeout(() => gameOver(), 2000)
       }
   }
@@ -391,12 +395,11 @@ function moveElements () {
           scoreNumber.innerHTML = score
         }         
 
-        if (score === 15) { 
+        if (score === 1) {
+          cancelAnimationFrame(animationFrameId) 
           winImage.src = "/images/yeah_win.png";
-          // If time add sprite image of fireworks
           yeahSound.play()
           gameMusic.pause()
-          cancelAnimationFrame(animationFrameId)
           youWin()
         }
     }
@@ -442,6 +445,7 @@ function insertScore() {
 */
 // What happens when Player lose
 function gameOver() {
+    gameIsOver = true;
     cancelAnimationFrame(animationFrameId)
     defeatSound.pause()
     gameMusic.pause()
@@ -455,25 +459,26 @@ function gameOver() {
 }
 
 // What happens when Player wins
-/*function youWin() {
+function youWin() {
+    youWon = true;
+    yeahSound.pause()
+    gameMusic.pause()
+    winSound.play()
+    cancelAnimationFrame(animationFrameId)
     youWinPage.style.display = "block";
     gameOverPage.style.display = "none";
     canvas.style.display = "none";
     splashPage.style.display = "none";
-    gamePlayDiv.style.display = "none";
-    gameMusic.pause()
-    winSound.play()
-    cancelAnimationFrame(animationFrameId)
+    gamePlayDiv.style.display = "none"; 
 }
-*/
 
-function tryAgain() {
+/*function tryAgain() {
     startGame()
 };
 
 function playAgain() {
     startGame()
-};
+};*/
 
 function muteAudio() {
     introMusic.pause = true
@@ -516,24 +521,20 @@ window.addEventListener("load", () => {
     startGame()
     console.log("play again button pushed!");
   });
-
- /* window.onload = function() {
+});
+ /*window.onload = function() {
     document.getElementById("intro-song").play();
-  } */
+  }*/
     
-    /*switchAudio.addEventListener("click", () => {
-    muteAudio();
-    if (muteAudio) {
-        soundBtn.setAttribute("src", "/images/sound_on.png");
+  switchAudio.addEventListener("click", () => {
+    if (muteAudio()) {
+        soundOnBtn.setAttribute("src", "/images/sound_on.png");
         console.log("mute audio button pushed!");
-    } else (unmuteAudio() {
-        soundBtn.setAttribute("src", "/images/sound_off.png");
+    } else { // whats wrong here?!
+        soundOffBtn.setAttribute("src", "/images/sound_off.png");
         console.log("unmute audio button pushed!");   
     }      
-  });*/
-  
-});
-
+  });
 
 // Commands Arrows
 document.addEventListener("keydown", event => {
