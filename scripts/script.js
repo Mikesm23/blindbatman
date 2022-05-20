@@ -5,44 +5,44 @@ const gamePlayDiv = document.querySelector("#gameplay");
 
 // Canvas Background
 let bg = new Image();
-bg.src = "/images/bgimage.jpeg";
+bg.src = "images/bgimage.jpeg";
 canvas.style.border = "4px solid #FEE202";
 
 // Images Sources
 let batmanRight = new Image();
-batmanRight.src = "/images/bb_goright.png";
+batmanRight.src = "images/bb_goright.png";
 let batmanLeft = new Image();
-batmanLeft.src = "/images/bb_goleft.png";
+batmanLeft.src = "images/bb_goleft.png";
 let joker = new Image();
-joker.src = "/images/joker.png";
+joker.src = "images/joker.png";
 let penguin = new Image();
-penguin.src = "/images/penguin.png";
+penguin.src = "images/penguin.png";
 let batSignal = new Image();
-batSignal.src = "/images/batsignal.png";
+batSignal.src = "images/batsignal.png";
 let lemon = new Image();
-lemon.src = "/images/lemon.png";
+lemon.src = "images/lemon.png";
 let winImage = new Image();
-winImage.src = "/images/yeah_win.png";
+winImage.src = "images/yeah_win.png";
 // If time add sprite image of bat
 
 // Audio
-let introMusic = new Audio("/audio/intro_song.m4a");
+let introMusic = new Audio("audio/intro_song.m4a");
 introMusic.volume = 0.1; // Played in Splash Page
-let gameMusic = new Audio("/audio/batman.mp3");
+let gameMusic = new Audio("audio/batman.mp3");
 gameMusic.volume = 0.1; // Played in Gameplay Page
-let hitSound = new Audio("/audio/hit.m4a");
+let hitSound = new Audio("audio/hit.m4a");
 hitSound.volume = 0.5; // Played when Batman is hit
-let sighSound = new Audio("/audio/sigh.m4a");
+let sighSound = new Audio("audio/sigh.m4a");
 sighSound.volume = 0.5; // Played when Batman improves health
-let catchSound = new Audio("/audio/catch.m4a");
+let catchSound = new Audio("audio/catch.m4a");
 catchSound.volume = 1,5; // Played when Batman catches symbol
-let defeatSound = new Audio("/audio/game_defeat.m4a");
+let defeatSound = new Audio("audio/game_defeat.m4a");
 defeatSound.volume = 1; // Played when player loses
-let gameOverMusic = new Audio("/audio/gameover_sound.m4a");
+let gameOverMusic = new Audio("audio/gameover_sound.m4a");
 gameOverMusic.volume = 0.5; // Played when Gameover page loads
-let yeahSound = new Audio("/audio/yeah.m4a");
+let yeahSound = new Audio("audio/yeah.m4a");
 yeahSound.volume = 0.7; // Played when player wins
-let winSound = new Audio("/audio/winsound.m4a");
+let winSound = new Audio("audio/winsound.m4a");
 winSound.volume = 0.5; // Played when Winner page loads
 
 // Pages
@@ -134,37 +134,85 @@ let randomXPlacement = () => {
 // Elements Falling from  the Sky
 let jokerArray = [
     { img: joker, x: randomXPlacement(), y: -100, width: jokerW, height: jokerH},
-    { img: joker, x: randomXPlacement(), y: -450, width: jokerW, height: jokerH},
-    { img: joker, x: randomXPlacement(), y: -800, width: jokerW, height: jokerH},
-    { img: joker, x: randomXPlacement(), y: -1150, width: jokerW, height: jokerH},
-    { img: joker, x: randomXPlacement(), y: -1500, width: jokerW, height: jokerH},
-    { img: joker, x: randomXPlacement(), y: -1850, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -1100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -2100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -3100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -4100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -5100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -6100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -7100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -8100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -9100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -10100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -11100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -12100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -13100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -14100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -15100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -16100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -17100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -18100, width: jokerW, height: jokerH},
+    { img: joker, x: randomXPlacement(), y: -19100, width: jokerW, height: jokerH},
+
   ];
 
   let penguinArray = [
     { img: penguin, x: randomXPlacement(), y: -100, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -700, width: penguinW, height: penguinH},
-    { img: penguin, x: randomXPlacement(), y: -900, width: penguinW, height: penguinH},
-    { img: penguin, x: randomXPlacement(), y: -1100, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -1300, width: penguinW, height: penguinH},
-    { img: penguin, x: randomXPlacement(), y: -1500, width: penguinW, height: penguinH},
-    { img: penguin, x: randomXPlacement(), y: -1700, width: penguinW, height: penguinH},
     { img: penguin, x: randomXPlacement(), y: -1900, width: penguinW, height: penguinH},
-    { img: penguin, x: randomXPlacement(), y: -2100, width: penguinW, height: penguinH},
-    { img: penguin, x: randomXPlacement(), y: -2300, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -2500, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -3100, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -3700, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -4300, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -5000, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -5600, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -6200, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -6800, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -7400, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -8000, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -8600, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -9900, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -11200, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -12500, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -13800, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -15100, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -16400, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -17700, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -19000, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -21200, width: penguinW, height: penguinH},
+    { img: penguin, x: randomXPlacement(), y: -22500, width: penguinW, height: penguinH},
   ];
 
   let batSignalArray = [
     { img: batSignal, x: randomXPlacement(), y: -100, width: batSignalW, height: batSignalH},
-    { img: batSignal, x: randomXPlacement(), y: -1000, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: randomXPlacement(), y: -1900, width: batSignalW, height: batSignalH  },
-    { img: batSignal, x: randomXPlacement(), y: -2800, width: batSignalW, height: batSignalH },
-    { img: batSignal, x: randomXPlacement(), y: -3700, width: batSignalW, height: batSignalH  },
+    { img: batSignal, x: randomXPlacement(), y: -1500, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -3000, width: batSignalW, height: batSignalH  },
+    { img: batSignal, x: randomXPlacement(), y: -4500, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -6000, width: batSignalW, height: batSignalH  },
+    { img: batSignal, x: randomXPlacement(), y: -7500, width: batSignalW, height: batSignalH},
+    { img: batSignal, x: randomXPlacement(), y: -9000, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -10500, width: batSignalW, height: batSignalH  },
+    { img: batSignal, x: randomXPlacement(), y: -13000, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -14500, width: batSignalW, height: batSignalH  },
+    { img: batSignal, x: randomXPlacement(), y: -16000, width: batSignalW, height: batSignalH},
+    { img: batSignal, x: randomXPlacement(), y: -17500, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -19000, width: batSignalW, height: batSignalH  },
+    { img: batSignal, x: randomXPlacement(), y: -20500, width: batSignalW, height: batSignalH },
+    { img: batSignal, x: randomXPlacement(), y: -23000, width: batSignalW, height: batSignalH  },
   ];
 
   let lemonArray = [
-    { img: lemon, x: randomXPlacement(), y: -125, width: lemonW, height: lemonH},
-    { img: lemon, x: randomXPlacement(), y: -1525, width: lemonW, height: lemonH},
+    { img: lemon, x: randomXPlacement(), y: -500, width: lemonW, height: lemonH},
+    { img: lemon, x: randomXPlacement(), y: -2500, width: lemonW, height: lemonH},
+    { img: lemon, x: randomXPlacement(), y: -4500, width: lemonW, height: lemonH},
+    { img: lemon, x: randomXPlacement(), y: -6500, width: lemonW, height: lemonH},
+    { img: lemon, x: randomXPlacement(), y: -8500, width: lemonW, height: lemonH},
+    { img: lemon, x: randomXPlacement(), y: -10500, width: lemonW, height: lemonH},
+    { img: lemon, x: randomXPlacement(), y: -12500, width: lemonW, height: lemonH},
+    { img: lemon, x: randomXPlacement(), y: -14500, width: lemonW, height: lemonH},
+    { img: lemon, x: randomXPlacement(), y: -16500, width: lemonW, height: lemonH},
+    { img: lemon, x: randomXPlacement(), y: -18500, width: lemonW, height: lemonH},
   ];
 
 let animationFrameId;
@@ -329,7 +377,7 @@ function moveElements () {
 function changeGameoverText() {
   
    if (score <= 5) {
-    gameOverText.innerHTML = `Wow ${player}! You're really bad at this... Sure you want this to be on record?`;
+    gameOverText.innerHTML = `Wow <span id="player-name">${player}</span>! You're really bad at this... Sure you want this to be on record?`;
    } else if (score > 5 && score <= 10) {
       gameOverText.innerHTML = `Not bad ${player}! You tried it right? That's what losers say. Go back and get better!`;
    } else if (score > 10 && score < 14) {
@@ -337,7 +385,7 @@ function changeGameoverText() {
    } else if (score === 15) {
       //playerInsert.innerHTML = player
       winnerText.innerHTML = `GREAT JOB ${player}! Batman is a lucky Super Hero to have you by his side. Impressive.
-      Now he is seeing again!`; // I don't understand why this doesn't work!
+      Now he is seeing again!`;
       youWon = true;
       youWin()
    }
