@@ -78,4 +78,4 @@ Game Repository:
 https://github.com/Mikesm23/blindbatman
 
 Game Demo:
-LINK TO GAME
+https://mikesm23.github.io/blindbatman/

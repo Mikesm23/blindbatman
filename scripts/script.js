@@ -247,13 +247,13 @@ function drawImages() {
 function moveBatman() {
     if (isBatmanGoingLeft) {
         if (batmanX > 0) {
-            batmanRight.src = "/images/bb_goleft.png";
+            batmanRight.src = "images/bb_goleft.png";
             console.log('isBatmanGoingLeft');
             batmanX -= batmanSpeed;
         }
       } else if (isBatmanGoingRight) {
         if (batmanX < canvas.width - batmanW) {
-            batmanRight.src = "/images/bb_goright.png";
+            batmanRight.src = "images/bb_goright.png";
             console.log('isBatmanGoingRight');
             batmanX += batmanSpeed;
         }
@@ -285,21 +285,21 @@ function moveElements () {
         }
         // Health Bar Behaviour
         if (health >= 6) {
-          healthBarImg.src = "/images/healthbar_full.png";
+          healthBarImg.src = "images/healthbar_full.png";
         } else if (health === 6) { 
-          healthBarImg.src = "/images/healthbar_full.png";
+          healthBarImg.src = "images/healthbar_full.png";
         } else if (health === 5) {
-          healthBarImg.src = "/images/healthbar_five.png";
+          healthBarImg.src = "images/healthbar_five.png";
         } else if (health === 4) {
-          healthBarImg.src = "/images/healthbar_four.png";
+          healthBarImg.src = "images/healthbar_four.png";
         } else if (health === 3) {
-          healthBarImg.src = "/images/healthbar_three.png";
+          healthBarImg.src = "images/healthbar_three.png";
         } else if (health === 2) {
-          healthBarImg.src = "/images/healthbar_two.png";
+          healthBarImg.src = "images/healthbar_two.png";
         } else if (health === 1) {
-          healthBarImg.src = "/images/healthbar_one.png";
+          healthBarImg.src = "images/healthbar_one.png";
         } else {
-          healthBarImg.src = "/images/healthbar_empty.png";
+          healthBarImg.src = "images/healthbar_empty.png";
           gameIsOver = true;
           defeatSound.play()
           setTimeout(() => gameOver(), 2500)
@@ -365,7 +365,7 @@ function moveElements () {
         }         
 
         if (score === 15) { 
-          // winImage.src = "/images/yeah_win.png";
+          // winImage.src = "images/yeah_win.png";
           youWon = true;
           yeahSound.play()
           setTimeout(() => youWin(), 2500)
@@ -383,7 +383,6 @@ function changeGameoverText() {
    } else if (score > 10 && score < 14) {
       gameOverText.innerHTML = `Almost there ${player}! But anyway...Batman is still blind so not much of a help here`;
    } else if (score === 15) {
-      //playerInsert.innerHTML = player
       winnerText.innerHTML = `GREAT JOB ${player}! Batman is a lucky Super Hero to have you by his side. Impressive.
       Now he is seeing again!`;
       youWon = true;
@@ -396,15 +395,17 @@ function getPlayerName() {
     gamePlayDiv.style.display = "none";
     gameOverPage.style.display = "none";
     youWinPage.style.display = "none";
-    if (player == "") {
+    if (player.length === 0) {
     player = prompt("Please repeat");
-    playerInsert.innerHTML = player;
-    } else if (player != null) {
+      if (player.length >= 1) {
       playerInsert.innerHTML = player;
     } else {
-      playerInsert.innerHTML = "player";
-      // This one is also a mistery. It worked at somepoint...
-    }
+    playerInsert.innerHTML = "Anonymous Hero";
+    } 
+  };
+    if (player.length >= 1) {
+      playerInsert.innerHTML = player;
+    } 
   };
 
 /*
@@ -500,9 +501,6 @@ window.addEventListener("load", () => {
   });
 });
 
- /*window.onload = function() {
-    document.getElementById("intro-song").play();
-  }*/
    /* 
   switchAudio.addEventListener("click", () => {
     if (muted) {
