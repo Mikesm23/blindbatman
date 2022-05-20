@@ -56,10 +56,9 @@ let startBtn = document.querySelector("#startBtn");
 let restartBtn = document.querySelector("#restartBtn");
 let tryAgainBtn = document.querySelector("#tryagainBtn");
 let playAgainBtn = document.querySelector("#playagainBtn");
-let switchAudio = document.querySelector(".sound");
 let healthBarImg = document.querySelector("#health-bar");
-let soundOnBtn = document.querySelector('.sound');
-let soundOffBtn = document.querySelector('.sound');
+let introMuteBtn = document.querySelector('.sound');
+let gameMusicMuteBtn = document.querySelector('.muteBtn');
 
 let gameOverText = document.querySelector("#go_uktext");
 let winnerText = document.querySelector("#yw_uktext");
@@ -120,6 +119,9 @@ let health = 6;
 
 // Player Variable
 let player = '';
+
+// Sound Variable
+let sound = true;
 
 // Generate random positions for the elements falling
 let randomXPlacement = () => {
@@ -379,11 +381,11 @@ function changeGameoverText() {
    if (score <= 5) {
     gameOverText.innerHTML = `Wow <span id="player-name">${player}</span>! You're really bad at this... Sure you want this to be on record?`;
    } else if (score > 5 && score <= 10) {
-      gameOverText.innerHTML = `Not bad ${player}! You tried it right? That's what losers say. Go back and get better!`;
+      gameOverText.innerHTML = `Not bad <span id="player-name">${player}</span>! You tried it right? That's what losers say. Go back and get better!`;
    } else if (score > 10 && score < 14) {
-      gameOverText.innerHTML = `Almost there ${player}! But anyway...Batman is still blind so not much of a help here`;
+      gameOverText.innerHTML = `Almost there <span id="player-name">${player}</span>! But anyway...Batman is still blind so not much of a help here`;
    } else if (score === 15) {
-      winnerText.innerHTML = `GREAT JOB ${player}! Batman is a lucky Super Hero to have you by his side. Impressive.
+      winnerText.innerHTML = `GREAT JOB <span id="player-name">${player}</span>! Batman is a lucky Super Hero to have you by his side. Impressive.
       Now he is seeing again!`;
       youWon = true;
       youWin()
@@ -401,6 +403,7 @@ function getPlayerName() {
       playerInsert.innerHTML = player;
     } else {
     playerInsert.innerHTML = "Anonymous Hero";
+    player = "Anonymous Hero";
     } 
   };
     if (player.length >= 1) {
@@ -454,27 +457,31 @@ function youWin() {
     changeGameoverText() 
 }
 
-/*
-function muteAudio() {
-    introMusic.pause()
-    gameMusic.pause()
-    hitSound.pause()
-    sighSound.pause()
-    defeatSound.pause()
-    gameOverMusic.pause()
-    winSound.pause()   
-}
+// Intro Page Mute button
+introMuteBtn.addEventListener("click", () => {
+  if (sound === true) {
+  introMuteBtn.src = "images/sound_on.png"
+  sound = false;
+  introMusic.pause()
+  } else {
+  introMuteBtn.src = "images/sound_off.png"
+  sound = true
+  introMusic.play()
+  }
+});
 
-function unmuteAudio() {
-    introMusic.play()
-    gameMusic.play()
-    hitSound.play()
-    sighSound.play()
-    defeatSound.play()
-    gameOverMusic.play()
-    winSound.play()
-}
-*/
+// Game Page Mute button
+/*gameMusicMuteBtn.addEventListener("click", () => {
+  if (sound === true) {
+    gameMusicMuteBtn.src = "images/sound_on.png"
+  sound = false;
+  gameMusic.pause()
+  } else {
+    gameMusicMuteBtn.src = "images/sound_off.png"
+  sound = true
+  gameMusic.play()
+  }
+});*/
 
 // Navigation (what happens when page loads)
 window.addEventListener("load", () => {  
@@ -500,18 +507,6 @@ window.addEventListener("load", () => {
     console.log("play again button pushed!");
   });
 });
-
-   /* 
-  switchAudio.addEventListener("click", () => {
-    if (muted) {
-        soundOnBtn.setAttribute("src", "/images/sound_on.png");
-        console.log("mute audio button pushed!");
-    } else {
-        soundOffBtn.setAttribute("src", "/images/sound_off.png");
-        console.log("unmute audio button pushed!");   
-    }      
-  });
-*/
 
 // Commands Arrows
 document.addEventListener("keydown", event => {
